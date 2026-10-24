@@ -1,0 +1,60 @@
+run_name: smoke
+seed: 42
+
+data:
+  source_dir: data/raw/tldr
+  processed_dir: data/processed
+  tokenizer_dir: artifacts/tokenizer
+  seed: 42
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  variants_per_example: 6
+  eval_examples: 1500
+  max_command_chars: 120
+  min_description_chars: 8
+  max_description_chars: 160
+
+model:
+  vocab_size: 4096
+  d_model: 64
+  n_layers: 2
+  n_heads: 2
+  intermediate_size: 256
+  max_seq_len: 128
+  rope_theta: 10000.0
+  dropout: 0.0
+  tie_embeddings: true
+
+train:
+  batch_size: 16
+  grad_accum_steps: 1
+  lr: 0.0005
+  min_lr: 0.00005
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  warmup_steps: 10
+  epochs: 1
+  eval_interval: 20
+  sample_interval: 20
+  save_interval: 20
+  log_interval: 1
+  num_workers: 0
+  num_threads: 4
+  device: cpu
+  output_dir: artifacts/runs
+  max_steps: 30
+  early_stopping_patience: 5
+
+eval:
+  batch_size: 1
+  max_new_tokens: 32
+  temperature: 0.0
+  top_k: 1
+  splits:
+    - val
+    - test_seen
+  num_failures: 20
+  max_examples: 100

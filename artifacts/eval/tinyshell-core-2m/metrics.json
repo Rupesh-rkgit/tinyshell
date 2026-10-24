@@ -1,0 +1,227 @@
+{
+  "run": "tinyshell-core-2m",
+  "checkpoint": "best",
+  "parameters": 2098816,
+  "config": {
+    "batch_size": 1,
+    "max_new_tokens": 64,
+    "temperature": 0.0,
+    "top_k": 1,
+    "splits": [
+      "val",
+      "test_seen",
+      "test_paraphrase"
+    ],
+    "num_failures": 50,
+    "max_examples": null
+  },
+  "splits": {
+    "val": {
+      "n": 187,
+      "exact_match": 0.0481,
+      "command_match": 0.8663,
+      "token_f1": 0.2271,
+      "valid_bash": 0.9519,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 173,
+        "caution": 14
+      },
+      "latency_ms": {
+        "mean": 217.51,
+        "p50": 160.93,
+        "p95": 486.02
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "git push",
+            "n": 4,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "aws eks",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          },
+          {
+            "page": "sed",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ],
+        "worst": [
+          {
+            "page": "sed",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "aws eks",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          },
+          {
+            "page": "git push",
+            "n": 4,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          }
+        ]
+      }
+    },
+    "test_seen": {
+      "n": 179,
+      "exact_match": 0.0279,
+      "command_match": 0.7374,
+      "token_f1": 0.1548,
+      "valid_bash": 0.9832,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 164,
+        "caution": 15
+      },
+      "latency_ms": {
+        "mean": 199.69,
+        "p50": 160.8,
+        "p95": 441.18
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "git gui",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          }
+        ],
+        "worst": [
+          {
+            "page": "git gui",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          }
+        ]
+      }
+    },
+    "test_paraphrase": {
+      "n": 211,
+      "exact_match": 0.0569,
+      "command_match": 0.9242,
+      "token_f1": 0.2601,
+      "valid_bash": 0.981,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 197,
+        "caution": 14
+      },
+      "latency_ms": {
+        "mean": 203.61,
+        "p50": 155.71,
+        "p95": 448.41
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "terraform plan",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "tar",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "git scp",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          }
+        ],
+        "worst": [
+          {
+            "page": "git scp",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "tar",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "terraform plan",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          }
+        ]
+      }
+    }
+  },
+  "baseline": {
+    "val": {
+      "n": 187,
+      "exact_match": 0.6738,
+      "command_match": 1.0,
+      "token_f1": 0.8783,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 172,
+        "caution": 15
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_seen": {
+      "n": 179,
+      "exact_match": 0.6425,
+      "command_match": 0.9832,
+      "token_f1": 0.8574,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 163,
+        "caution": 16
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_paraphrase": {
+      "n": 211,
+      "exact_match": 0.6398,
+      "command_match": 0.9763,
+      "token_f1": 0.8644,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 199,
+        "caution": 12
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    }
+  },
+  "generated_at": "2026-10-23T07:34:03Z"
+}

@@ -1,0 +1,84 @@
+{
+  "run": "tinyshell-2m-run2-docmask",
+  "checkpoint": "best",
+  "parameters": 2098816,
+  "config": {
+    "batch_size": 1,
+    "max_new_tokens": 64,
+    "temperature": 0.0,
+    "top_k": 1,
+    "splits": [
+      "val",
+      "val_unseen",
+      "test_seen",
+      "test_paraphrase",
+      "test_unseen",
+      "test_unseen_paraphrase"
+    ],
+    "num_failures": 50,
+    "max_examples": null
+  },
+  "splits": {
+    "val": {
+      "n": 187,
+      "exact_match": 0.0,
+      "command_match": 0.3583,
+      "token_f1": 0.1439,
+      "valid_bash": 0.984,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 114,
+        "caution": 73
+      },
+      "latency_ms": {
+        "mean": 256.73,
+        "p50": 178.45,
+        "p95": 664.55
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "git push",
+            "n": 4,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "aws eks",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "sed",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ],
+        "worst": [
+          {
+            "page": "sed",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "aws eks",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "git push",
+            "n": 4,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          }
+        ]
+      }
+    }
+  },
+  "baseline": null,
+  "generated_at": "2026-10-23T07:35:02Z"
+}

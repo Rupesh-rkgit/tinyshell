@@ -1,0 +1,236 @@
+{
+  "run": "tinyshell-2m-run1",
+  "checkpoint": "best",
+  "parameters": 2098816,
+  "config": {
+    "batch_size": 1,
+    "max_new_tokens": 64,
+    "temperature": 0.0,
+    "top_k": 1,
+    "splits": [
+      "val",
+      "val_unseen",
+      "test_seen",
+      "test_paraphrase",
+      "test_unseen",
+      "test_unseen_paraphrase"
+    ],
+    "num_failures": 50,
+    "max_examples": null
+  },
+  "splits": {
+    "val": {
+      "n": 1500,
+      "exact_match": 0.0,
+      "command_match": 0.0653,
+      "token_f1": 0.1083,
+      "valid_bash": 0.9947,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 378,
+        "caution": 1122
+      },
+      "latency_ms": {
+        "mean": 275.69,
+        "p50": 180.68,
+        "p95": 899.46
+      }
+    },
+    "val_unseen": {
+      "n": 1500,
+      "exact_match": 0.0007,
+      "command_match": 0.078,
+      "token_f1": 0.1262,
+      "valid_bash": 0.998,
+      "empty_rate": 0.0,
+      "risk": {
+        "caution": 1022,
+        "safe": 478
+      },
+      "latency_ms": {
+        "mean": 305.1,
+        "p50": 168.64,
+        "p95": 1063.53
+      }
+    },
+    "test_seen": {
+      "n": 1500,
+      "exact_match": 0.0,
+      "command_match": 0.084,
+      "token_f1": 0.1172,
+      "valid_bash": 0.992,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 662,
+        "caution": 838
+      },
+      "latency_ms": {
+        "mean": 216.72,
+        "p50": 157.95,
+        "p95": 867.41
+      }
+    },
+    "test_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.0,
+      "command_match": 0.0547,
+      "token_f1": 0.1277,
+      "valid_bash": 0.9947,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 861,
+        "caution": 639
+      },
+      "latency_ms": {
+        "mean": 169.48,
+        "p50": 133.03,
+        "p95": 402.4
+      }
+    },
+    "test_unseen": {
+      "n": 1500,
+      "exact_match": 0.0,
+      "command_match": 0.0673,
+      "token_f1": 0.1153,
+      "valid_bash": 0.9967,
+      "empty_rate": 0.0,
+      "risk": {
+        "caution": 1016,
+        "safe": 484
+      },
+      "latency_ms": {
+        "mean": 165.67,
+        "p50": 126.41,
+        "p95": 386.13
+      }
+    },
+    "test_unseen_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.0,
+      "command_match": 0.0467,
+      "token_f1": 0.1129,
+      "valid_bash": 0.996,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 841,
+        "caution": 659
+      },
+      "latency_ms": {
+        "mean": 178.98,
+        "p50": 134.88,
+        "p95": 397.9
+      }
+    }
+  },
+  "baseline": {
+    "val": {
+      "n": 1500,
+      "exact_match": 0.6013,
+      "command_match": 0.916,
+      "token_f1": 0.811,
+      "valid_bash": 0.9993,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1339,
+        "caution": 155,
+        "destructive": 6
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "val_unseen": {
+      "n": 1500,
+      "exact_match": 0.006,
+      "command_match": 0.1307,
+      "token_f1": 0.2593,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1366,
+        "caution": 126,
+        "destructive": 8
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_seen": {
+      "n": 1500,
+      "exact_match": 0.6007,
+      "command_match": 0.9153,
+      "token_f1": 0.8152,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1338,
+        "caution": 155,
+        "destructive": 7
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.5987,
+      "command_match": 0.9207,
+      "token_f1": 0.8248,
+      "valid_bash": 0.9993,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1345,
+        "caution": 141,
+        "destructive": 14
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_unseen": {
+      "n": 1500,
+      "exact_match": 0.006,
+      "command_match": 0.1133,
+      "token_f1": 0.2477,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1344,
+        "caution": 147,
+        "destructive": 9
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_unseen_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.006,
+      "command_match": 0.1113,
+      "token_f1": 0.2543,
+      "valid_bash": 0.9993,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1344,
+        "caution": 149,
+        "destructive": 7
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    }
+  },
+  "generated_at": "2026-10-23T01:25:31Z"
+}

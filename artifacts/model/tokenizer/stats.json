@@ -1,0 +1,27 @@
+{
+  "vocab_size": 4096,
+  "requested_vocab_size": 4096,
+  "special_tokens": {
+    "<|pad|>": 0,
+    "<|eos|>": 1,
+    "<|system|>": 2,
+    "<|user|>": 3,
+    "<|assistant|>": 4
+  },
+  "corpus": {
+    "examples": 135860,
+    "chars": 40593787,
+    "chars_per_token_sample": 4.396
+  },
+  "token_lengths": {
+    "n": 5000,
+    "mean": 69.34,
+    "p50": 67.0,
+    "p90": 92.0,
+    "p95": 101.0,
+    "p99": 119.0,
+    "max": 137
+  },
+  "roundtrip_failures": 0,
+  "train_seconds": 6.15
+}
