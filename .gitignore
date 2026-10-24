@@ -14,3 +14,6 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Run 3 XL data (too large for git)
+data/processed-xl/

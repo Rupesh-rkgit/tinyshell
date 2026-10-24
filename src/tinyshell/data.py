@@ -35,8 +35,8 @@ PLACEHOLDER_RE = re.compile(r"\{\{(.*?)\}\}")
 FILL_RE = re.compile(r"\{\{(.*?)\}\}(\.[A-Za-z0-9]+)?")
 SHELL_KEYWORDS = {"case", "for", "while", "until", "if", "function", "select", "then", "fi"}
 
-# Prompt styles. 0-7 are seen during training; 8-9 are held out for the
-# seen-command paraphrase split; 10-11 are held out for the hardest split.
+# Prompt styles. 0-7 and 12-15 are seen during training; 8-9 are held out for
+# the seen-command paraphrase split; 10-11 are held out for the hardest split.
 REQUEST_STYLES = [
     "How do I {desc}?",
     "I want to {desc}.",
@@ -50,8 +50,14 @@ REQUEST_STYLES = [
     "What's the best way to {desc}?",
     "Help me {desc}.",
     "Show me the command for this: {desc}.",
+    # Run 3: four extra TRAIN phrasings for request diversity. Indices must
+    # stay >= 12 so the held-out eval styles (8-11) are unchanged.
+    "What would you run to {desc}?",
+    "Do you know how to {desc}?",
+    "Type a shell command that will {desc}.",
+    "I'm looking for a command to {desc}.",
 ]
-TRAIN_STYLES = list(range(8))
+TRAIN_STYLES = [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 14, 15]
 VAL_STYLE = 8
 TEST_SEEN_STYLE = 9
 PARAPHRASE_STYLES = [10, 11]
@@ -170,9 +176,9 @@ def _filter_reason(example: Example, cfg: Config) -> str | None:
     stripped = PLACEHOLDER_RE.sub("", command)
     if "{{" in stripped or "}}" in stripped:
         return "malformed_placeholder"
-    if "{{$" in command or "$(" in command or "${" in command:
+    if "{{$" in command or "$(" in command or "${" in command or "<(" in command or ">(" in command:
         return "shell_substitution_or_variable"
-    if "!!" in command or re.search(r"![$^]", command):
+    if command.startswith("!") or "!!" in command or re.search(r"![$^]", command):
         return "history_expansion"
     if example.page in {"!", "[[", "]]"}:
         return "shell_snippet"
@@ -183,6 +189,10 @@ def _filter_reason(example: Example, cfg: Config) -> str | None:
     first = command.split(maxsplit=1)[0].lower()
     if first in SHELL_KEYWORDS or first in {"{", "(", "[["}:
         return "shell_snippet"
+    if re.fullmatch(r"[\d*/,:+-]+", first):
+        # Retained crontab fragments like "0 10 * * * git status": the first
+        # token is a schedule, not an executable command (Run 3 quality rule).
+        return "cron_schedule_first_token"
     if command.startswith("#") or " #" in command:
         return "comment"
     if ";" in command:

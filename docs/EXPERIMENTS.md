@@ -227,7 +227,7 @@ the full 5× weight to every example while the reported numbers reflect the
 partial version. Treat the core numbers as a slightly conservative estimate
 of the weighting effect.
 
-## Run 3: 10M parameters, ~90M training tokens (in progress)
+## Run 3: 10M parameters, ~100M training tokens (in progress)
 
 Run 3 scales the broad setup along the three axes the diagnostics above point
 at: capacity, data volume, and data quality. It is **not directly comparable**
@@ -242,11 +242,12 @@ remain meaningful.
   choice is plain scaling of a proven design — the 2.1M experiments showed
   no instability that an architecture change would fix, while capacity was
   the binding constraint.
-- **Data volume.** `variants_per_example` goes from 6 to **100** (styles cycle
+- **Data volume.** `variants_per_example` goes from 6 to **150** (styles cycle
   deterministically over the training pool and every variant draws fresh slot
-  fills), growing the corpus from 9.2M to a projected ~90M training tokens
-  (~1.3M unique requests, one pass). Slot-free examples saturate at their 12
-  distinct phrasings; slot-bearing examples scale near-linearly.
+  fills), growing the corpus from 9.2M to **99,992,950 training tokens**
+  (1,303,083 unique requests across 468,212 document-aligned chunks — one
+  pass). Slot-free examples saturate at their 12 distinct phrasings;
+  slot-bearing examples scale near-linearly.
 - **Data quality.** The example filter now additionally rejects: a leading `!`
   (history expansion like `!git ...`), a first token shaped like a cron
   schedule (`0 10 * * * git status`), and process substitution
@@ -257,10 +258,11 @@ remain meaningful.
   new slot values), page-level splits, doc-aligned packing,
   `first_token_weight` 1.0.
 
-Training plan: 1 epoch at batch size 128 (32,768 tokens/step), lr 3e-4 with
-cosine decay to 3e-5 over ~300 warmup steps, ~2,700 steps projected
-(~30 hours on 4 vCPU). Config: `configs/tinyshell-xl.yaml`, data in
-`data/processed-xl/`. Results will be appended here when the run completes.
+Training plan: 1 epoch at batch size 128 (32,768 positions/step), lr 3e-4 with
+cosine decay to 3e-5 over 300 warmup steps, 3,658 steps total (~30 hours
+estimated on 4 vCPU, measured throughput to be confirmed by a smoke run).
+Config: `configs/tinyshell-xl.yaml`, data in `data/processed-xl/`. Results
+will be appended here when the run completes.
 
 ## What this says about small-model evaluation
 

@@ -1,0 +1,66 @@
+# Run 3: 10M-parameter model, ~90M training tokens, stricter data filters.
+# Not directly comparable to run 2 (data version change); see docs/EXPERIMENTS.md.
+run_name: tinyshell-xl-10m
+seed: 42
+
+data:
+  source_dir: data/raw/tldr
+  processed_dir: data/processed-xl
+  tokenizer_dir: artifacts/tokenizer
+  seed: 42
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  variants_per_example: 150
+  eval_examples: 1500
+  max_command_chars: 120
+  min_description_chars: 8
+  max_description_chars: 160
+
+model:
+  vocab_size: 4096
+  d_model: 256
+  n_layers: 10
+  n_heads: 8
+  intermediate_size: 768
+  max_seq_len: 256
+  rope_theta: 10000.0
+  dropout: 0.05
+  tie_embeddings: true
+
+train:
+  batch_size: 128
+  grad_accum_steps: 1
+  lr: 0.0003
+  min_lr: 0.00003
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  warmup_steps: 300
+  epochs: 1
+  eval_interval: 250
+  sample_interval: 250
+  save_interval: 500
+  log_interval: 10
+  num_workers: 0
+  num_threads: 4
+  device: cpu
+  output_dir: artifacts/runs
+  max_steps: null
+  early_stopping_patience: 20
+
+eval:
+  batch_size: 1
+  max_new_tokens: 64
+  temperature: 0.0
+  top_k: 1
+  splits:
+    - val
+    - val_unseen
+    - test_seen
+    - test_paraphrase
+    - test_unseen
+    - test_unseen_paraphrase
+  num_failures: 50
+  max_examples: null
