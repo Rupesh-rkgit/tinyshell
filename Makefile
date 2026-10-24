@@ -9,8 +9,9 @@ RUN ?= artifacts/runs/tinyshell-2m-run2-docmask
 EVAL_DIR ?= artifacts/eval/tinyshell-2m-run2-docmask
 CORE_RUN ?= artifacts/runs/tinyshell-core-2m
 CORE_EVAL_DIR ?= artifacts/eval/tinyshell-core-2m
+PORT ?= 8585
 
-.PHONY: help setup data tokenizer core smoke train core-train eval core-eval package plots core-plots results core-results demo test lint format clean
+.PHONY: help setup data tokenizer core smoke train core-train eval core-eval package plots core-plots results core-results dashboard demo test lint format clean
 
 help:
 	@echo "TinyShell targets:"
@@ -28,6 +29,8 @@ help:
 	@echo "  make core-plots Generate plots for the core run"
 	@echo "  make results    Print the broad model vs BM25 comparison"
 	@echo "  make core-results Print the core model vs BM25 comparison"
+
+	@echo "  make dashboard  Serve the training/eval dashboard (http://localhost:$(PORT))"
 	@echo "  make demo       Ask the trained model for a command"
 	@echo "  make test       Run the test suite"
 	@echo "  make lint       Run ruff"
@@ -45,6 +48,10 @@ tokenizer:
 
 core:
 	$(PY) scripts/build_core.py
+
+dashboard:
+	$(PY) scripts/dashboard.py --serve --port $(PORT)
+
 
 smoke:
 	$(PY) -m tinyshell.train --config configs/smoke.yaml

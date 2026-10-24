@@ -247,6 +247,7 @@ tinyshell --model artifacts/runs/tinyshell-2m-run2-docmask/checkpoints/best.pt "
 | `make package` | Copy the broad checkpoint/config/tokenizer/docs to `artifacts/model` |
 | `make plots` | Broad-run training curves and eval bar chart |
 | `make core-plots` | Core-run training curves and eval bar chart |
+| `make dashboard` | Live dashboard: runs, loss curves, evals, ETA at `http://localhost:8585` |
 | `make results` | Print the broad model vs BM25 comparison |
 | `make core-results` | Print the core model vs BM25 comparison |
 | `make demo` | One example request |

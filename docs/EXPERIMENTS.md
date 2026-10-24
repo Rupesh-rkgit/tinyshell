@@ -264,6 +264,13 @@ estimated on 4 vCPU, measured throughput to be confirmed by a smoke run).
 Config: `configs/tinyshell-xl.yaml`, data in `data/processed-xl/`. Results
 will be appended here when the run completes.
 
+Repo-history note: the run was launched at commit `81bdf02`. That commit was
+later rewritten during a git hygiene fix (the initial commit had accidentally
+tracked large data/checkpoint files; history was filtered to code, docs, and
+small eval artifacts only with identical content, and the `.gitignore` was
+completed). Code-level content is unchanged; the new pre-launch hash is
+`2b88264`.
+
 ## What this says about small-model evaluation
 
 - **Loss can hide a shortcut.** Run 1's validation loss looked reasonable, but
