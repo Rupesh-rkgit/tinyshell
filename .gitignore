@@ -10,10 +10,22 @@ dist/
 
 
 
+# Data (regenerable: make data, scripts/build_core.py, tokenizer/dataset steps)
+data/raw/
+data/processed/
+data/core/
+data/processed-xl/
+
+# Training outputs (runs are reproducible from configs + recorded git commit;
+# curated evaluation results live in artifacts/eval)
+artifacts/runs/
+artifacts/model/*.pt
+
+# Evaluation bulk outputs (regenerable via make eval)
+artifacts/eval/**/*_predictions.jsonl
+artifacts/eval/**/*_failures.jsonl
+
 # OS / editors
 .DS_Store
 .idea/
 .vscode/
-
-# Run 3 XL data (too large for git)
-data/processed-xl/
