@@ -96,6 +96,32 @@ slot values and held-out request styles. `test_unseen` and
 
 The full breakdown is in `data/processed/dataset_manifest.json`.
 
+## Dataset v2 (Run 3, XL corpus)
+
+The Run 3 training corpus (`data/processed-xl/`, config
+`configs/tinyshell-xl.yaml`) is a volume-and-quality revision of the v1
+processing above. Sources, pages (`common` + `linux`), tokenizer, page-level
+splits, and the slot-value pools are unchanged; it is **not** a new dataset —
+it is the same corpus scaled and filtered more strictly.
+
+- **Request generation:** `variants_per_example` 6 → 150; `TRAIN_STYLES`
+  extended with 4 new prompts (indices 12–15), so slot-free examples saturate
+  at 12 distinct phrasings and slot-bearing examples scale near-linearly.
+  Every variant key cycles the train-style pool and draws a fresh slot-fill
+  seed.
+- **Stricter example filter (on top of v1 rules):** rejects a command whose
+  first token is pure schedule syntax (`0 10 * * * git status`), any command
+  starting with `!` (history expansion), and process substitution
+  (`source <(kubectl completion zsh)`). These rejections removed 139 examples
+  total (~28.6k usable base examples otherwise unchanged).
+- **Volume:** 1,303,083 training requests after requirement-level dedup
+  → **99,992,950 packed training tokens** in 468,212 document-aligned chunks;
+  17,411,259 supervised label tokens; max example length 229 tokens.
+- **Splits:** same page hash split; each eval split stays at 1,500 capped
+  requests generated with single variant seeds, so eval cost did not grow.
+- **Not directly comparable** to v1 metrics because the corpus changed; the
+  page split overlap keeps directional comparisons meaningful.
+
 ## Focused core subset
 
 `data/core/` is a derived subset used by the TinyShell Core experiment. It is

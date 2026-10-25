@@ -227,7 +227,7 @@ the full 5× weight to every example while the reported numbers reflect the
 partial version. Treat the core numbers as a slightly conservative estimate
 of the weighting effect.
 
-## Run 3: 10M parameters, ~100M training tokens (in progress)
+## Run 3: 10M parameters, ~100M training tokens (completed)
 
 Run 3 scales the broad setup along the three axes the diagnostics above point
 at: capacity, data volume, and data quality. It is **not directly comparable**
@@ -258,11 +258,32 @@ remain meaningful.
   new slot values), page-level splits, doc-aligned packing,
   `first_token_weight` 1.0.
 
-Training plan: 1 epoch at batch size 128 (32,768 positions/step), lr 3e-4 with
-cosine decay to 3e-5 over 300 warmup steps, 3,658 steps total (~30 hours
-estimated on 4 vCPU, measured throughput to be confirmed by a smoke run).
-Config: `configs/tinyshell-xl.yaml`, data in `data/processed-xl/`. Results
-will be appended here when the run completes.
+Training ran to completion: 3,657 steps over 27.7 hours (99,690 s) on all 4
+vCPU threads at a steady ~1,190 tokens/s (32,768 positions/step), one pass
+over the packed corpus, cosine schedule ending at lr 3e-5, no early stop.
+
+### Run 3 training outcome
+
+- **Validation loss (seen pages, held-out style 8): 0.6565** vs run 2's
+  2.9377/2.9214 (best/final) — the enlarged corpus plus 4.6× capacity cut
+  seen-command fit dramatically.
+- **Unseen-page validation loss: 4.1451 — run 3 is *worse* here than run 2**
+  (3.7993). That inversion is the headline: the 150×-variant corpus repeats
+  each *page* many times with fresh phrasings and slot values, so the model
+  hyper-fits its known command families while gaining little on pages it
+  has never seen. In loss terms the run-2/run-3 seen/unseen gap widened
+  from 0.87 to 3.49.
+- Training loss at step 3,650 was ~0.13 (checkpoint: `best.pt` at val 0.6565).
+  Run 2 trained 4 epochs (~37.7M token passes); run 3 is a single pass over
+  a 100M-token corpus — more distinct data, fewer repeats per string.
+- Snapshots every 500 steps are in `artifacts/runs/tinyshell-xl-10m/`;
+  cumulative throughput and the loss curves are in `plots/` and the
+  dashboard.
+
+<!-- RUN3-EVAL:START -->
+Post-run generation evaluation (6 splits × 1,500) is running; results will
+replace this paragraph when the evaluation completes.
+<!-- RUN3-EVAL:END -->
 
 Repo-history note: the run was launched at commit `81bdf02`. That commit was
 later rewritten during a git hygiene fix (the initial commit had accidentally
