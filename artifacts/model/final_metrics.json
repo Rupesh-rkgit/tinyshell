@@ -1,12 +1,12 @@
 {
-  "step": 2608,
-  "epoch": 3,
-  "best_val": 2.9376652047169665,
-  "val_loss": 2.9214362314343276,
-  "val_unseen_loss": 3.7993404223385077,
+  "step": 3657,
+  "epoch": 0,
+  "best_val": 0.6564731585567114,
+  "val_loss": 0.6571012204850192,
+  "val_unseen_loss": 4.145108650958585,
   "stopped_early": false,
-  "train_chunks": 41743,
-  "val_chunks": 524,
-  "parameters": 2098816,
-  "elapsed_seconds": 11750.408938125998
+  "train_chunks": 468212,
+  "val_chunks": 510,
+  "parameters": 9573632,
+  "elapsed_seconds": 99690.145225418
 }

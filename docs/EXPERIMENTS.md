@@ -281,8 +281,77 @@ over the packed corpus, cosine schedule ending at lr 3e-5, no early stop.
   dashboard.
 
 <!-- RUN3-EVAL:START -->
-Post-run generation evaluation (6 splits × 1,500) is running; results will
-replace this paragraph when the evaluation completes.
+### Run 3 generation evaluation
+
+Checkpoint `best`, greedy decoding; the regenerated eval requests use
+identical generation logic and page splits as run 2's (only the 139 pages
+removed by the stricter filter changed), so cross-run comparison is
+reasonably direct. Full data: `artifacts/eval/tinyshell-xl-10m/`.
+
+| Split | N | Exact | Command | Token F1 | Valid bash | p50 |
+|---|---:|---:|---:|---:|---:|---:|
+| `val` | 1499 | 0.460 | 0.618 | 0.604 | 0.997 | 290 ms |
+| `val_unseen` | 1500 | 0.011 | 0.138 | 0.315 | 0.995 | 227 ms |
+| `test_seen` | 1500 | 0.525 | 0.692 | 0.644 | 0.997 | 245 ms |
+| `test_paraphrase` | 1500 | 0.559 | 0.722 | 0.681 | 0.997 | 242 ms |
+| `test_unseen` | 1500 | 0.005 | 0.111 | 0.289 | 0.989 | 229 ms |
+| `test_unseen_paraphrase` | 1500 | 0.005 | 0.098 | 0.292 | 0.991 | 242 ms |
+
+**And the frontier moved in three ways.**
+
+1. **Seen-command composition works now.** Exact match on seen splits is
+   0.46–0.56 (run 2: ≤0.002), token F1 0.60–0.68 (run 2: ~0.18). Paraphrase
+   robustness held: `test_paraphrase` (0.559) is the *strongest* split —
+   unseen phrasings do not hurt the model that trained on 12 phrasings.
+2. **On unseen commands the model now edges out BM25 on F1.** Run 2 lost the
+   unseen splits to retrieval on both metric families (e.g. F1 0.170–0.174
+   vs 0.248–0.286). Run 3's unseen token F1 is 0.289/0.292/0.315 vs
+   retrieval's 0.277/0.291/0.286 — ahead on all three (margin +0.001 to
+   +0.029) — and command match is ahead only on `val_unseen`
+   (0.138 vs 0.135). The tiny generative model now composes roughly
+   at-par with the retriever on novel pages instead of trailing it.
+3. **Within-tool confusions persist.** The seen splits' remaining errors
+   are mostly near-misses (`phpcs`↔`phpcbf`, `7zr`↔`7za`, `bun`↔`npm`).
+
+**Seen/unseen remains the run's core caveat.** Exactly as the training-loss
+table above showed, the model hyper-fits pages it trained on: 0.525 exact on
+`test_seen` vs 0.005 on `test_unseen`. For *known* pages the model is now a
+competent suggestion engine; for *unknown* pages it is a combinatorial
+`sudo`-biased prior. Error census (`test_seen`): 788/1500 exact (52.5%),
+250 right-command-wrong-arguments (16.7%), 4 invalid bash (0.3%), zero empty.
+
+The `sudo` prior persists in attenuated form: 14.7% of `test_seen`
+predictions begin with `sudo` vs 5.5% of references (run 2: 42%). The
+over-prediction concentrates on obscure admin commands (`zeroclaw`, `pveum`,
+`koji`, `pg_config`) where root access in the training data is plausible —
+rational, but defaults to privilege escalation and must be surfaced.
+
+Representative failures (`test_seen`):
+
+```text
+reference: git changelog --start-tag 0.5.0 --final-tag 1.0.0
+prediction: git changelog --filter 5:1.0.0 --list          # right family, invented flags
+reference: zeroclaw agent
+prediction: hangman                                        # unseen page -> random command
+reference: mysql_secure_installation --help
+prediction: sudo rkhhunter --help                          # obscure page -> sudo + wrong tool
+```
+
+**Comparison against BM25 (seen splits):** retrieval still wins exact match
+on every seen split, 0.857 mean vs 0.515 — the requests are generated
+paraphrases of training requests, so retrieval is close to an oracle there.
+The practical split stands: `--retrieve` for commands known to be in the
+corpus; the neural path only matters for composing modifications of known
+commands (already more than run 2 could offer).
+
+**Bottom line.** 4.6× parameters and 10.9× data moved the broad model from
+"usually the wrong tool" (≤2% exact, 6–9% command match) to competitive
+suggestion quality on seen commands (53–56% exact with unseen phrasings),
+with model ≳ retrieval on unseen pages for the first time. The unresolved
+axis is page-level generalization, not decoding or family selection: on
+unseen pages the correct mechanism would need to be composition from a
+stronger command vocabulary (or retrieval-augmented generation), which is
+future work.
 <!-- RUN3-EVAL:END -->
 
 Repo-history note: the run was launched at commit `81bdf02`. That commit was

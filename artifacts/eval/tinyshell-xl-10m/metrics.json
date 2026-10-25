@@ -1,0 +1,998 @@
+{
+  "run": "tinyshell-xl-10m",
+  "checkpoint": "best",
+  "parameters": 9573632,
+  "config": {
+    "batch_size": 1,
+    "max_new_tokens": 64,
+    "temperature": 0.0,
+    "top_k": 1,
+    "splits": [
+      "val",
+      "val_unseen",
+      "test_seen",
+      "test_paraphrase",
+      "test_unseen",
+      "test_unseen_paraphrase"
+    ],
+    "num_failures": 50,
+    "max_examples": null
+  },
+  "splits": {
+    "val": {
+      "n": 1499,
+      "exact_match": 0.4596,
+      "command_match": 0.6177,
+      "token_f1": 0.6041,
+      "valid_bash": 0.9967,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1213,
+        "caution": 284,
+        "destructive": 2
+      },
+      "latency_ms": {
+        "mean": 368.82,
+        "p50": 290.04,
+        "p95": 855.27
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "dlv",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "jj git remote",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "passage",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "ppmshadow",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "kubie",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "findmnt",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "wait4x tcp",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          },
+          {
+            "page": "git rebase",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "glances",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.3333
+          },
+          {
+            "page": "neo4j-admin",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.6667
+          }
+        ],
+        "worst": [
+          {
+            "page": "http-server",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          },
+          {
+            "page": "vale",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.3333
+          },
+          {
+            "page": "neo4j-admin",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.6667
+          },
+          {
+            "page": "glances",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.3333
+          },
+          {
+            "page": "git rebase",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "wait4x tcp",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          },
+          {
+            "page": "findmnt",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "kubie",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "ppmshadow",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "passage",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          }
+        ]
+      }
+    },
+    "val_unseen": {
+      "n": 1500,
+      "exact_match": 0.0107,
+      "command_match": 0.138,
+      "token_f1": 0.3154,
+      "valid_bash": 0.9947,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1282,
+        "caution": 211,
+        "destructive": 7
+      },
+      "latency_ms": {
+        "mean": 288.0,
+        "p50": 227.06,
+        "p95": 647.26
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "jj operation",
+            "n": 4,
+            "exact_match": 0.75,
+            "command_match": 1.0
+          },
+          {
+            "page": "tlmgr shell",
+            "n": 5,
+            "exact_match": 0.4,
+            "command_match": 0.4
+          },
+          {
+            "page": "wine reg",
+            "n": 5,
+            "exact_match": 0.4,
+            "command_match": 1.0
+          },
+          {
+            "page": "cryptsetup",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.6667
+          },
+          {
+            "page": "uv",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.3333
+          },
+          {
+            "page": "cs install",
+            "n": 4,
+            "exact_match": 0.25,
+            "command_match": 0.75
+          },
+          {
+            "page": "npm",
+            "n": 4,
+            "exact_match": 0.25,
+            "command_match": 0.75
+          },
+          {
+            "page": "conda",
+            "n": 5,
+            "exact_match": 0.2,
+            "command_match": 0.2
+          },
+          {
+            "page": "pass",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "msbuild",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ],
+        "worst": [
+          {
+            "page": "xterm",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "dotnet publish",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          },
+          {
+            "page": "btrfs balance",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.6667
+          },
+          {
+            "page": "apx pkgmanagers",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "etckeeper",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "flatpak mask",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "lzip",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "debsecan",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "git fsck",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.3333
+          },
+          {
+            "page": "arping",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ]
+      }
+    },
+    "test_seen": {
+      "n": 1500,
+      "exact_match": 0.5253,
+      "command_match": 0.692,
+      "token_f1": 0.6436,
+      "valid_bash": 0.9973,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1213,
+        "caution": 277,
+        "destructive": 10
+      },
+      "latency_ms": {
+        "mean": 320.94,
+        "p50": 245.29,
+        "p95": 748.82
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "postcss",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "pdfcrop",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "chrt",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "rcsmerge",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "kdocker",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "dash",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "shnsplit",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "gh skyline",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          },
+          {
+            "page": "usbip",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "lid",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          }
+        ],
+        "worst": [
+          {
+            "page": "proctl",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.3333
+          },
+          {
+            "page": "eselect news",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.3333
+          },
+          {
+            "page": "asnmap",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.6667
+          },
+          {
+            "page": "openai",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "mumble",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "pdftotext",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "obsidian",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "npm pkg",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "nest",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "lid",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          }
+        ]
+      }
+    },
+    "test_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.5593,
+      "command_match": 0.722,
+      "token_f1": 0.6808,
+      "valid_bash": 0.9967,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1287,
+        "caution": 210,
+        "destructive": 3
+      },
+      "latency_ms": {
+        "mean": 315.74,
+        "p50": 242.43,
+        "p95": 771.25
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "xcaddy",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "yamllint",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "terraform untaint",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "monodis",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "winemaker",
+            "n": 3,
+            "exact_match": 1.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "systemctl service-log-target",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          },
+          {
+            "page": "npm find-dupes",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          },
+          {
+            "page": "nimble",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "mupdf",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          },
+          {
+            "page": "opkg",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          }
+        ],
+        "worst": [
+          {
+            "page": "kscreenctl",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "uv self",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "pecl",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "polybar-msg",
+            "n": 4,
+            "exact_match": 0.0,
+            "command_match": 1.0
+          },
+          {
+            "page": "govulncheck",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.3333
+          },
+          {
+            "page": "pamixer",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "systemd-analyze",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.3333
+          },
+          {
+            "page": "ed",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "opkg",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "mupdf",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 1.0
+          }
+        ]
+      }
+    },
+    "test_unseen": {
+      "n": 1500,
+      "exact_match": 0.0047,
+      "command_match": 0.1113,
+      "token_f1": 0.2886,
+      "valid_bash": 0.9893,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1249,
+        "destructive": 8,
+        "caution": 243
+      },
+      "latency_ms": {
+        "mean": 295.27,
+        "p50": 228.92,
+        "p95": 669.38
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "gh",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.3333
+          },
+          {
+            "page": "flux create",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 1.0
+          },
+          {
+            "page": "jj config list",
+            "n": 4,
+            "exact_match": 0.25,
+            "command_match": 0.75
+          },
+          {
+            "page": "git branch",
+            "n": 5,
+            "exact_match": 0.2,
+            "command_match": 0.8
+          },
+          {
+            "page": "php-coveralls",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "web-ext",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "gitleaks",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "pio pkg",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "keyd",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "bundletool dump",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.3333
+          }
+        ],
+        "worst": [
+          {
+            "page": "hatch",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "install-tl",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "krunvm",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "rustscan",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "wait4x",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "gh attestation",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "wayland-info",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "d2",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "conda init",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "rdesktop",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ]
+      }
+    },
+    "test_unseen_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.0053,
+      "command_match": 0.098,
+      "token_f1": 0.2923,
+      "valid_bash": 0.9907,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1249,
+        "caution": 247,
+        "destructive": 4
+      },
+      "latency_ms": {
+        "mean": 305.98,
+        "p50": 242.12,
+        "p95": 729.95
+      },
+      "per_page": {
+        "best": [
+          {
+            "page": "cargo init",
+            "n": 3,
+            "exact_match": 0.6667,
+            "command_match": 0.6667
+          },
+          {
+            "page": "wait4x",
+            "n": 3,
+            "exact_match": 0.3333,
+            "command_match": 0.6667
+          },
+          {
+            "page": "acme.sh",
+            "n": 4,
+            "exact_match": 0.25,
+            "command_match": 0.75
+          },
+          {
+            "page": "git branch",
+            "n": 5,
+            "exact_match": 0.2,
+            "command_match": 0.8
+          },
+          {
+            "page": "ghost",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "kaggle kernels",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "tomb",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "iwlist",
+            "n": 7,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "terraform providers",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "pulseaudio-ctl",
+            "n": 6,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ],
+        "worst": [
+          {
+            "page": "dutree",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "idnits",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "lpr",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "hatch",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "setfiles",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "lmms",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "spf",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "mariadb-binlog",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "trust",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          },
+          {
+            "page": "cloudflared",
+            "n": 3,
+            "exact_match": 0.0,
+            "command_match": 0.0
+          }
+        ]
+      }
+    }
+  },
+  "baseline": {
+    "val": {
+      "n": 1499,
+      "exact_match": 0.8512,
+      "command_match": 0.932,
+      "token_f1": 0.9472,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1355,
+        "caution": 139,
+        "destructive": 5
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "val_unseen": {
+      "n": 1500,
+      "exact_match": 0.0093,
+      "command_match": 0.1353,
+      "token_f1": 0.2861,
+      "valid_bash": 0.9993,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1354,
+        "caution": 134,
+        "destructive": 12
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_seen": {
+      "n": 1500,
+      "exact_match": 0.8427,
+      "command_match": 0.918,
+      "token_f1": 0.9178,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1358,
+        "caution": 137,
+        "destructive": 5
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.8767,
+      "command_match": 0.942,
+      "token_f1": 0.9639,
+      "valid_bash": 0.9987,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1345,
+        "caution": 149,
+        "destructive": 6
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_unseen": {
+      "n": 1500,
+      "exact_match": 0.0073,
+      "command_match": 0.124,
+      "token_f1": 0.2773,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1347,
+        "caution": 143,
+        "destructive": 10
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "test_unseen_paraphrase": {
+      "n": 1500,
+      "exact_match": 0.008,
+      "command_match": 0.114,
+      "token_f1": 0.2909,
+      "valid_bash": 1.0,
+      "empty_rate": 0.0,
+      "risk": {
+        "safe": 1360,
+        "caution": 135,
+        "destructive": 5
+      },
+      "latency_ms": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    }
+  },
+  "generated_at": "2026-10-25T14:49:36Z"
+}

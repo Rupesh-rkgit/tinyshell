@@ -3,12 +3,15 @@
 ## Model details
 
 - **Name:** TinyShell
-- **Version:** 0.1.0
+- **Version:** 0.2.0 (primary run: `tinyshell-xl-10m`; the 2.1M run 2 stays
+  available as v0.1 in its run directory)
 - **Type:** decoder-only causal language model (Llama-style)
-- **Parameters:** 2,098,816 total; 1,574,528 non-embedding
-- **Architecture:** 6 layers, `d_model=128`, 4 attention heads (head dim 32),
-  SwiGLU MLP (`intermediate_size=512`), RMSNorm, RoPE (θ = 10,000), causal
+- **Parameters:** 9,573,632 total; 8,525,056 non-embedding
+- **Architecture:** 10 layers, `d_model=256`, 8 attention heads (head dim 32),
+  SwiGLU MLP (`intermediate_size=768`), RMSNorm, RoPE (θ = 10,000), causal
   scaled dot-product attention, tied input/output embeddings, dropout 0.05
+- **Training corpus:** 99,992,950 packed tokens (1,303,083 requests), single
+  pass, batch 128 × 256 positions, lr 3e-4 cosine → 3e-5, 27.7 hours on CPU
 - **Context length:** 256 tokens
 - **Vocabulary:** 4,096 byte-level BPE tokens, including five special tokens
   (`<|pad|>`, `<|eos|>`, `<|system|>`, `<|user|>`, `<|assistant|>`)
@@ -110,27 +113,27 @@ syntax validity as a sanity check. A BM25 retrieval baseline is evaluated on
 the same examples.
 
 <!-- EVAL:START -->
-Run `tinyshell-2m-run2-docmask`, checkpoint `best`, 2,098,816 parameters.
+Run `tinyshell-xl-10m`, checkpoint `best`, 9,573,632 parameters.
 
 | Split | N | Exact | Command | Token F1 | Valid bash | p50 latency |
 |---|---:|---:|---:|---:|---:|---:|
-| `val` | 1500 | 0.001 | 0.073 | 0.174 | 0.985 | 155 ms |
-| `val_unseen` | 1500 | 0.001 | 0.080 | 0.174 | 0.991 | 133 ms |
-| `test_seen` | 1500 | 0.000 | 0.081 | 0.173 | 0.987 | 151 ms |
-| `test_paraphrase` | 1500 | 0.002 | 0.089 | 0.187 | 0.995 | 140 ms |
-| `test_unseen` | 1500 | 0.000 | 0.069 | 0.170 | 0.995 | 139 ms |
-| `test_unseen_paraphrase` | 1500 | 0.000 | 0.062 | 0.172 | 0.991 | 141 ms |
+| `val` | 1499 | 0.460 | 0.618 | 0.604 | 0.997 | 290 ms |
+| `val_unseen` | 1500 | 0.011 | 0.138 | 0.315 | 0.995 | 227 ms |
+| `test_seen` | 1500 | 0.525 | 0.692 | 0.644 | 0.997 | 245 ms |
+| `test_paraphrase` | 1500 | 0.559 | 0.722 | 0.681 | 0.997 | 242 ms |
+| `test_unseen` | 1500 | 0.005 | 0.111 | 0.289 | 0.989 | 229 ms |
+| `test_unseen_paraphrase` | 1500 | 0.005 | 0.098 | 0.292 | 0.991 | 242 ms |
 
 ### BM25 baseline
 
 | Split | BM25 exact | BM25 command | BM25 token F1 | Model exact | Δ exact |
 |---|---:|---:|---:|---:|---:|
-| `val` | 0.601 | 0.916 | 0.811 | 0.001 | -0.601 |
-| `val_unseen` | 0.006 | 0.131 | 0.259 | 0.001 | -0.005 |
-| `test_seen` | 0.601 | 0.915 | 0.815 | 0.000 | -0.601 |
-| `test_paraphrase` | 0.599 | 0.921 | 0.825 | 0.002 | -0.597 |
-| `test_unseen` | 0.006 | 0.113 | 0.248 | 0.000 | -0.006 |
-| `test_unseen_paraphrase` | 0.006 | 0.111 | 0.254 | 0.000 | -0.006 |
+| `val` | 0.851 | 0.932 | 0.947 | 0.460 | -0.392 |
+| `val_unseen` | 0.009 | 0.135 | 0.286 | 0.011 | +0.001 |
+| `test_seen` | 0.843 | 0.918 | 0.918 | 0.525 | -0.317 |
+| `test_paraphrase` | 0.877 | 0.942 | 0.964 | 0.559 | -0.317 |
+| `test_unseen` | 0.007 | 0.124 | 0.277 | 0.005 | -0.003 |
+| `test_unseen_paraphrase` | 0.008 | 0.114 | 0.291 | 0.005 | -0.003 |
 <!-- EVAL:END -->
 
 ### Focused core variant (diagnostic)
@@ -174,15 +177,13 @@ packaged default.
   execution authority.
 - **Coverage:** common/Linux commands only; no shell state, environment
   variables, aliases, or user-specific tooling.
-- **Size:** 2.1M parameters limit world knowledge and compositional reasoning.
-  Run 2 gets the command family right on 6–9% of held-out requests, and 42% of
-  `test_seen` predictions still begin with `sudo` versus 6.8% of references.
-  It often produces a plausible tool with the wrong subcommand, or copies the
-  right arguments under the wrong command. The focused core variant (see
-  above) shows family selection is tractable in a small label space while
-  exact-match argument composition remains the hard part. See
-  `docs/EXPERIMENTS.md` for the packing bug found in run 1, the fix evaluated
-  in run 2, the core-command experiment, and the 10M-parameter run.
+- **Size/generalization:** 9.6M parameters + 100M tokens work inside the
+  training distribution (`test_seen` 0.525 exact, 0.692 command match; sudo
+  over-prediction cut from 42% to 14.7% of predictions vs 5.5% of
+  references) but unseen command *pages* remain unsolved (0.5% exact; the
+  fallback prior is `sudo` for obscure admin tools). The scaling experiments
+  (2.1M → 9.6M at fixed page splits) and the core-command diagnostic in
+  `docs/EXPERIMENTS.md` document precisely where capacity stops helping.
 - **Bias:** tldr-pages reflects its contributors' choices of commands, examples,
   and naming; the slot pools use synthetic names and could reinforce stereotypes
   (e.g. `alice`/`bob`, `/home/alice`). No demographic data is used.

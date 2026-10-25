@@ -1,6 +1,6 @@
 # TinyShell packaged model
 
-Run: `tinyshell-2m-run2-docmask`
+Run: `tinyshell-xl-10m`
 
 Usage:
 

@@ -14,8 +14,10 @@ artifacts/
 │   ├── stats.json              # vocab size, token-length percentiles, round trips
 │   └── vocab_preview.txt       # first 200 vocabulary entries
 ├── runs/
+runs/
+│   ├── tinyshell-xl-10m/       # primary run: 9.6M params, 100M tokens (run 3)
 │   ├── tinyshell-2m-run1/      # naive-packing ablation (kept for comparison)
-│   ├── tinyshell-2m-run2-docmask/  # shipped broad model
+│   ├── tinyshell-2m-run2-docmask/  # prior 2.1M broad model (v0.1)
 │   └── tinyshell-core-2m/      # focused core-command diagnostic
 │       ├── config.yaml         # exact config used for this run
 │       ├── env.json            # OS, Python, torch, CPU, git state

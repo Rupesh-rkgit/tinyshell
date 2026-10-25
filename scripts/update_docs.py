@@ -104,12 +104,16 @@ def main() -> None:
             "\n\n### Model vs BM25 retrieval baseline\n\n"
             + baseline_table(splits, baseline)
             + f"\n\nAveraged over seen-command splits, BM25 exact match is "
-            f"**{seen_bm25:.3f}** vs **{seen_model:.3f}** for the model. On "
-            f"unseen-command splits both are weak: **{unseen_bm25:.3f}** vs "
-            f"**{unseen_model:.3f}**. BM25 returns a memorized training command; "
-            "the model can in principle compose a new one, but this 2.1M-parameter "
-            "prototype has not learned to do so reliably. Treat the model as an "
-            "educational baseline, not a command oracle."
+            f"**{seen_bm25:.3f}** vs **{seen_model:.3f}** for the model. BM25 wins "
+            f"seen splits by construction: evaluation requests are generated "
+            "paraphrases of training requests, so retrieving the nearest training "
+            "command is close to an oracle there. On unseen-command splits both "
+            f"are weak: **{unseen_bm25:.3f}** vs **{unseen_model:.3f}** exact; the "
+            "model composes novel commands while the baseline can only return a "
+            "memorized one. Check token F1 above for the generative-vs-retrieval "
+            "comparison the exact-match metric misses: a different-but-valid "
+            "command is penalized in exact match but not in token F1. Treat the "
+            "model as a suggestion tool under review, not a command oracle."
         )
 
     readme = Path("README.md")

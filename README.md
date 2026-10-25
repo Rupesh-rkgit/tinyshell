@@ -8,15 +8,16 @@ filtering, a byte-level BPE tokenizer, a Llama-style decoder trained from random
 initialization, honest held-out evaluation, retrieval baselines, a CLI, tests,
 plots, model packaging, and model/data cards.
 
-> **Status: educational prototype.** The neural model is not a reliable command
-> oracle. On the broad 6,600-page dataset it usually chooses the wrong command
-> family (≈7% command match on held-out requests) even though it produces valid
-> bash 98–99% of the time and copies some arguments. BM25 retrieval is much
-> stronger on seen commands. A focused 111-command-label variant lifts command
-> match to 74–92% but stays near zero on exact match, confirming the small
-> model's bottleneck is argument composition, not family selection. The
-> project's value is the complete, reproducible pipeline and the documented
-> failure analysis, not production accuracy. See [Results](#results) and
+> **Status: educational prototype, with one usable mode.** The neural model
+> only suggests commands and never runs them. Broad-task command suggestion
+> at 9.6M parameters works for commands covered by the training distribution
+> (0.52–0.56 exact match with fresh slot values and unseen phrasings;
+> BM25 retrieval in `--retrieve` mode stays stronger on those) but does not
+> generalize to unseen command *pages* (0.5–1% exact; the model's fallback
+> prior is `sudo`). The project's value is the complete, reproducible
+> pipeline, the documented scaling experiments (2.1M → 9.6M, 9M → 100M
+> tokens), and the honest benchmark against a trivially strong retrieval
+> baseline. See [Results](#results) and
 > [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md).
 
 The model **only suggests** commands. It never runs them. A retrieval-only mode
@@ -52,34 +53,37 @@ packages, then rendering the same intent in several prompt styles.
 
 ## Results
 
-Trained on 4 vCPU ARM64 (no GPU) for 4 epochs / 2,608 optimizer steps
-(≈36.7M real-token passes) with document-aligned packing and block-diagonal
-attention. Full evaluation uses 1,500 examples per split.
+The headline run below (**run 3, 9.6M parameters**) trained once over a
+100M-token corpus (1,303,083 requests, 468,212 document-aligned chunks,
+3,657 steps) for 27.7 hours on 4 vCPU ARM64 (no GPU). The prior 2.1M model
+(run 2: 4 epochs / ~36.7M real-token passes) is kept in the git history and
+in `docs/EXPERIMENTS.md` as the scaling ablation. Full evaluation uses 1,500
+examples per split.
 
 <!-- RESULTS:START -->
-Trained model: **2,098,816 parameters**, checkpoint `best`. Run: `tinyshell-2m-run2-docmask`.
+Trained model: **9,573,632 parameters**, checkpoint `best`. Run: `tinyshell-xl-10m`.
 
 | Split | N | Exact | Command | Token F1 | Valid bash | p50 latency |
 |---|---:|---:|---:|---:|---:|---:|
-| `val` | 1500 | 0.001 | 0.073 | 0.174 | 0.985 | 155 ms |
-| `val_unseen` | 1500 | 0.001 | 0.080 | 0.174 | 0.991 | 133 ms |
-| `test_seen` | 1500 | 0.000 | 0.081 | 0.173 | 0.987 | 151 ms |
-| `test_paraphrase` | 1500 | 0.002 | 0.089 | 0.187 | 0.995 | 140 ms |
-| `test_unseen` | 1500 | 0.000 | 0.069 | 0.170 | 0.995 | 139 ms |
-| `test_unseen_paraphrase` | 1500 | 0.000 | 0.062 | 0.172 | 0.991 | 141 ms |
+| `val` | 1499 | 0.460 | 0.618 | 0.604 | 0.997 | 290 ms |
+| `val_unseen` | 1500 | 0.011 | 0.138 | 0.315 | 0.995 | 227 ms |
+| `test_seen` | 1500 | 0.525 | 0.692 | 0.644 | 0.997 | 245 ms |
+| `test_paraphrase` | 1500 | 0.559 | 0.722 | 0.681 | 0.997 | 242 ms |
+| `test_unseen` | 1500 | 0.005 | 0.111 | 0.289 | 0.989 | 229 ms |
+| `test_unseen_paraphrase` | 1500 | 0.005 | 0.098 | 0.292 | 0.991 | 242 ms |
 
 ### Model vs BM25 retrieval baseline
 
 | Split | BM25 exact | BM25 command | BM25 token F1 | Model exact | Δ exact |
 |---|---:|---:|---:|---:|---:|
-| `val` | 0.601 | 0.916 | 0.811 | 0.001 | -0.601 |
-| `val_unseen` | 0.006 | 0.131 | 0.259 | 0.001 | -0.005 |
-| `test_seen` | 0.601 | 0.915 | 0.815 | 0.000 | -0.601 |
-| `test_paraphrase` | 0.599 | 0.921 | 0.825 | 0.002 | -0.597 |
-| `test_unseen` | 0.006 | 0.113 | 0.248 | 0.000 | -0.006 |
-| `test_unseen_paraphrase` | 0.006 | 0.111 | 0.254 | 0.000 | -0.006 |
+| `val` | 0.851 | 0.932 | 0.947 | 0.460 | -0.392 |
+| `val_unseen` | 0.009 | 0.135 | 0.286 | 0.011 | +0.001 |
+| `test_seen` | 0.843 | 0.918 | 0.918 | 0.525 | -0.317 |
+| `test_paraphrase` | 0.877 | 0.942 | 0.964 | 0.559 | -0.317 |
+| `test_unseen` | 0.007 | 0.124 | 0.277 | 0.005 | -0.003 |
+| `test_unseen_paraphrase` | 0.008 | 0.114 | 0.291 | 0.005 | -0.003 |
 
-Averaged over seen-command splits, BM25 exact match is **0.600** vs **0.001** for the model. On unseen-command splits both are weak: **0.006** vs **0.000**. BM25 returns a memorized training command; the model can in principle compose a new one, but this 2.1M-parameter prototype has not learned to do so reliably. Treat the model as an educational baseline, not a command oracle.
+Averaged over seen-command splits, BM25 exact match is **0.857** vs **0.515** for the model. BM25 wins seen splits by construction: evaluation requests are generated paraphrases of training requests, so retrieving the nearest training command is close to an oracle there. On unseen-command splits both are weak: **0.008** vs **0.007** exact; the model composes novel commands while the baseline can only return a memorized one. Check token F1 above for the generative-vs-retrieval comparison the exact-match metric misses: a different-but-valid command is penalized in exact match but not in token F1. Treat the model as a suggestion tool under review, not a command oracle.
 <!-- RESULTS:END -->
 
 ### Focused core experiment (diagnostic)

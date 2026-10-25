@@ -2,11 +2,11 @@ SHELL := /bin/bash
 PY := .venv/bin/python
 PIP := .venv/bin/pip
 
-# Shipped runs are explicit so `make eval/package` cannot accidentally pick a
-# smoke-test or companion run by directory mtime. Override on the command line,
-# e.g. `make eval RUN=latest`.
-RUN ?= artifacts/runs/tinyshell-2m-run2-docmask
-EVAL_DIR ?= artifacts/eval/tinyshell-2m-run2-docmask
+# Primary and companion runs are explicit so `make eval/package` cannot
+# accidentally pick a smoke-test or companion run by directory mtime.
+# Override on the command line, e.g. `make eval RUN=artifacts/runs/tinyshell-2m-run2-docmask`.
+RUN ?= artifacts/runs/tinyshell-xl-10m
+EVAL_DIR ?= artifacts/eval/tinyshell-xl-10m
 CORE_RUN ?= artifacts/runs/tinyshell-core-2m
 CORE_EVAL_DIR ?= artifacts/eval/tinyshell-core-2m
 PORT ?= 8585
