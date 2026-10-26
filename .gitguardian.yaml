@@ -1,0 +1,15 @@
+# GitGuardian / ggshield configuration.
+#
+# The dataset generator (src/tinyshell/data.py, SlotFiller.PASSWORDS) fills
+# password/token slots in tldr examples with fixed, public, synthetic values.
+# They appear throughout generated data, evaluation predictions, and docs
+# (e.g. `glab auth login --token s3cret-pass`) and are not credentials.
+version: 2
+secret:
+  ignored-matches:
+    - name: synthetic slot value (data.py PASSWORDS)
+      match: s3cret-pass
+    - name: synthetic slot value (data.py PASSWORDS)
+      match: correct-horse
+    - name: synthetic slot value (data.py PASSWORDS)
+      match: changeme
