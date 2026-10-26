@@ -3,6 +3,12 @@
 **A 2.1M-parameter language model, trained from scratch on a CPU, for
 natural-language → Linux shell command suggestions.**
 
+> **New:** 📖 [`TINYSHELL_BOOK.md`](TINYSHELL_BOOK.md) — a complete learning
+> book (~45 pages) covering the theory, implementation, all four training
+> runs, and evaluation. 📄 [`paper/`](paper/) — a LaTeX research paper with
+> citations. Checkpoints marked `best-model.pt` are model-only files
+> (`scripts/strip_checkpoint.py`) that fit GitHub's file-size limit.
+
 TinyShell is an end-to-end, education-oriented LLM project: data collection and
 filtering, a byte-level BPE tokenizer, a Llama-style decoder trained from random
 initialization, honest held-out evaluation, retrieval baselines, a CLI, tests,

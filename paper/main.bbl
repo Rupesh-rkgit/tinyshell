@@ -1,0 +1,209 @@
+\begin{thebibliography}{26}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Lin et~al.(2017)Lin, Wang, Pang, Vu, Zettlemoyer, and
+  Ernst]{lin2017tellina}
+Xi~Victoria Lin, Chenglong Wang, Deric Pang, Kevin Vu, Luke Zettlemoyer, and
+  Michael~D. Ernst.
+\newblock Program synthesis from natural language using recurrent neural
+  networks.
+\newblock Technical Report UW-CSE-17-03-01, University of Washington,
+  Department of Computer Science and Engineering, 2017.
+
+\bibitem[Lin et~al.(2018)Lin, Wang, Zettlemoyer, and Ernst]{lin2018nl2bash}
+Xi~Victoria Lin, Chenglong Wang, Luke Zettlemoyer, and Michael~D. Ernst.
+\newblock {NL2Bash}: A corpus and semantic parser for natural language
+  interface to the {Linux} operating system.
+\newblock In \emph{Proceedings of the Eleventh International Conference on
+  Language Resources and Evaluation (LREC)}, 2018.
+\newblock arXiv:1802.08979.
+
+\bibitem[Chen et~al.(2021)Chen, Tworek, Jun, Yuan, Pinto, Kaplan, Edwards,
+  Burda, Joseph, Brockman, et~al.]{chen2021codex}
+Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de~Oliveira
+  Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg
+  Brockman, et~al.
+\newblock Evaluating large language models trained on code.
+\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021.
+
+\bibitem[Rozi{\`e}re et~al.(2023)Rozi{\`e}re, Gehring, Gloeckle, Sootla, Gat,
+  Tan, Adi, Liu, Sauvestre, Raffel, et~al.]{roziere2023codellama}
+Baptiste Rozi{\`e}re, Jonas Gehring, Fabrice Gloeckle, Sten Sootla, Itai Gat,
+  Xiaoqing~Ellen Tan, Yossi Adi, Jingyu Liu, Romain Sauvestre, Tom Raffel,
+  et~al.
+\newblock Code llama: Open foundation models for code.
+\newblock \emph{arXiv preprint arXiv:2308.12950}, 2023.
+
+\bibitem[Touvron et~al.(2023)Touvron, Lavril, Izacard, Martinet, Lachaux,
+  Lacroix, Rozi{\`e}re, Goyal, Hambro, Azhar, Rodriguez, Joulin, Grave, and
+  Lample]{touvron2023llama}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne
+  Lachaux, Timoth{\'e}e Lacroix, Baptiste Rozi{\`e}re, Naman Goyal, Eric
+  Hambro, Faisal Azhar, Aurelien Rodriguez, Armand Joulin, Edouard Grave, and
+  Guillaume Lample.
+\newblock {LLaMA}: Open and efficient foundation language models.
+\newblock \emph{arXiv preprint arXiv:2302.13971}, 2023.
+
+\bibitem[Grattafiori et~al.(2024)]{grattafiori2024llama3}
+Aaron Grattafiori et~al.
+\newblock The llama 3 herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+
+\bibitem[Ouyang et~al.(2022)Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin,
+  Zhang, Agarwal, Slama, Ray, et~al.]{ouyang2022instructgpt}
+Long Ouyang, Jeffrey Wu, Xu~Jiang, Diogo Almeida, Carroll Wainwright, Pamela
+  Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, et~al.
+\newblock Training language models to follow instructions with human feedback.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~35, 2022.
+\newblock arXiv:2203.02155.
+
+\bibitem[Eldan and Li(2023)]{eldan2023tinystories}
+Ronen Eldan and Yuanzhi Li.
+\newblock {TinyStories}: Small language models that can tell stories.
+\newblock \emph{arXiv preprint arXiv:2305.07759}, 2023.
+
+\bibitem[Zhang et~al.(2024)Zhang, Zeng, Li, Wang, Zhang, and
+  Zee]{zhang2024tinyllama}
+Peiyuan Zhang, Guangtao Zeng, Tiandi Li, Howard Wang, Lu~Zhang, and Charles
+  Zee.
+\newblock {TinyLlama}: An open-source small language model.
+\newblock \emph{arXiv preprint arXiv:2401.02385}, 2024.
+
+\bibitem[Karpathy(2023)]{karpathy2023nanogpt}
+Andrej Karpathy.
+\newblock nano{GPT}: The simplest, fastest repository for training/finetuning
+  medium-sized {GPTs}.
+\newblock \url{https://github.com/karpathy/nanoGPT}, 2023.
+
+\bibitem[Krell et~al.(2021)Krell, Kosec, Perez, and
+  Fitzgibbon]{krell2021packing}
+Mario~Michael Krell, Matej Kosec, Sergio~P. Perez, and Andrew Fitzgibbon.
+\newblock Efficient sequence packing without cross-contamination: Accelerating
+  large language models without impacting performance.
+\newblock \emph{arXiv preprint arXiv:2107.02027}, 2021.
+
+\bibitem[Dao et~al.(2022)Dao, Fu, Ermon, Rudra, and
+  R{\'e}]{dao2022flashattention}
+Tri Dao, Daniel~Y. Fu, Stefano Ermon, Atri Rudra, and Christopher R{\'e}.
+\newblock {FlashAttention}: Fast and memory-efficient exact attention with
+  {IO}-awareness, 2022.
+\newblock arXiv:2205.14135.
+
+\bibitem[Copet et~al.(2023)Copet, Kreuk, Gat, Remez, Kant, Synnaeve, Adi, and
+  D{\'e}fossez]{copet2023musicgen}
+Jade Copet, Felix Kreuk, Itai Gat, Tal Remez, David Kant, Gabriel Synnaeve,
+  Yossi Adi, and Alexandre D{\'e}fossez.
+\newblock Simple and controllable music generation.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~36, 2023.
+\newblock arXiv:2306.05284.
+
+\bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child,
+  Gray, Radford, Wu, and Amodei]{kaplan2020scaling}
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B. Brown, Benjamin Chess, Rewon
+  Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
+\newblock Scaling laws for neural language models.
+\newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem[Hoffmann et~al.(2022)Hoffmann, Borgeaud, Mensch, Buchatskaya, Cai,
+  Rutherford, Casas, Hendricks, Welbl, Clark, Hinton, Noland, Millican, van~den
+  Driessche, Damoc, Guy, Osindero, Simonyan, Rae, Vinyals, Sifre, Tighe,
+  Merity, Hadfield, Sumner, Ortis-Baban, et~al.]{hoffmann2022chinchilla}
+Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor
+  Cai, Eliza Rutherford, Diego de~Las Casas, Lisa~Anne Hendricks, Johannes
+  Welbl, Aidan Clark, Tom Hinton, Eric Noland, Katie Millican, George van~den
+  Driessche, Bogdan Damoc, Aurelia Guy, Simon Osindero, Karen Simonyan, Jack~W.
+  Rae, Oriol Vinyals, Laurent Sifre, Seb Tighe, Sander Merity, Simon Hadfield,
+  Charles Sumner, Sona Ortis-Baban, et~al.
+\newblock Training compute-optimal large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~35, 2022.
+\newblock arXiv:2203.15556.
+
+\bibitem[Lewis et~al.(2020)Lewis, Perez, Piktus, Petroni, Karpukhin, Goyal,
+  K{\"u}ttler, Lewis, Yih, Rockt{\"a}schel, Riedel, and Kiela]{lewis2020rag}
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
+  Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
+  Rockt{\"a}schel, Sebastian Riedel, and Douwe Kiela.
+\newblock Retrieval-augmented generation for knowledge-intensive {NLP} tasks.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~33, 2020.
+\newblock arXiv:2005.11401.
+
+\bibitem[Yang et~al.(2023)Yang, Jimenez, Wettig, Lieret, Yao, Narasimhan, and
+  Press]{yang2023intercode}
+John Yang, Carlos~E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao,
+  Karthik Narasimhan, and Ofir Press.
+\newblock {InterCode}: Standardizing and benchmarking interactive coding with
+  execution feedback.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~36, 2023.
+\newblock arXiv:2306.14898.
+
+\bibitem[{tldr-pages contributors}(2024)]{tldrpages}
+{tldr-pages contributors}.
+\newblock tldr-pages: Simplified and community-driven man pages.
+\newblock \url{https://github.com/tldr-pages/tldr}, 2024.
+\newblock Licensed CC-BY-4.0; snapshot commit
+  95062b79e30fc3539246399b1dbfcfabbccc79cf.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock \emph{Advances in Neural Information Processing Systems (NeurIPS)},
+  30, 2017.
+\newblock arXiv:1706.03762.
+
+\bibitem[Zhang and Sennrich(2019)]{zhang2019rmsnorm}
+Biao Zhang and Rico Sennrich.
+\newblock Root mean square layer normalization.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~32, 2019.
+\newblock arXiv:1910.07467.
+
+\bibitem[Su et~al.(2021)Su, Lu, Pan, Murtadha, Wen, and Liu]{su2021roformer}
+Jianlin Su, Yu~Lu, Shengfeng Pan, Ahmed Murtadha, Bo~Wen, and Yunfeng Liu.
+\newblock {RoFormer}: Enhanced transformer with rotary position embedding.
+\newblock \emph{arXiv preprint arXiv:2104.09864}, 2021.
+
+\bibitem[Shazeer(2020)]{shazeer2020glu}
+Noam Shazeer.
+\newblock {GLU} variants improve transformer.
+\newblock \emph{arXiv preprint arXiv:2002.05202}, 2020.
+
+\bibitem[Press and Wolf(2017)]{press2017tying}
+Ofir Press and Lior Wolf.
+\newblock Using the output embedding to improve language models.
+\newblock In \emph{Proceedings of the 15th Conference of the European Chapter
+  of the Association for Computational Linguistics (EACL)}, pages 157--163,
+  2017.
+\newblock arXiv:1608.05859.
+
+\bibitem[Sennrich et~al.(2016)Sennrich, Haddow, and Birch]{sennrich2016bpe}
+Rico Sennrich, Barry Haddow, and Alexandra Birch.
+\newblock Neural machine translation of rare words with subword units.
+\newblock In \emph{Proceedings of the 54th Annual Meeting of the Association
+  for Computational Linguistics (ACL)}, pages 1715--1725, 2016.
+\newblock arXiv:1508.07909.
+
+\bibitem[Loshchilov and Hutter(2019)]{loshchilov2019adamw}
+Ilya Loshchilov and Frank Hutter.
+\newblock Decoupled weight decay regularization.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+\newblock arXiv:1711.05101.
+
+\bibitem[Robertson and Zaragoza(2009)]{robertson2009bm25}
+Stephen Robertson and Hugo Zaragoza.
+\newblock The probabilistic relevance framework: {BM25} and beyond.
+\newblock \emph{Foundations and Trends in Information Retrieval}, 3\penalty0
+  (4):\penalty0 333--389, 2009.
+
+\end{thebibliography}

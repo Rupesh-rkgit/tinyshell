@@ -1,0 +1,11 @@
+{
+  "tokenizer_class": "ByteLevelBPE",
+  "vocab_size": 4096,
+  "pad_token": "<|pad|>",
+  "eos_token": "<|eos|>",
+  "system_token": "<|system|>",
+  "user_token": "<|user|>",
+  "assistant_token": "<|assistant|>",
+  "system_prompt": "You are a Linux shell command assistant. Convert the request into exactly one command. Reply with the command only, no explanation.",
+  "chat_template": "<|system|>\\n{system}\\n<|user|>\\n{user}\\n<|assistant|>\\n"
+}

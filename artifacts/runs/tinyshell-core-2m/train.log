@@ -1,0 +1,197 @@
+05:15:31 | INFO | model: 2.10M params (1.57M non-embedding), vocab=4096, seq_len=256
+05:15:31 | INFO | data: 5186 train chunks, 64 val chunks, 81 optimizer steps/epoch, 1620 total steps
+05:16:49 | INFO | step     10 | loss 8.2937 | lr 3.75e-05 | grad 2.93 |   2087 tok/s | 1m 18s
+05:18:02 | INFO | step     20 | loss 8.0773 | lr 7.50e-05 | grad 1.82 |   2228 tok/s | 2m 31s
+05:18:49 | INFO | step     30 | loss 7.8784 | lr 1.12e-04 | grad 1.77 |   3515 tok/s | 3m 17s
+05:19:35 | INFO | step     40 | loss 7.7001 | lr 1.50e-04 | grad 1.66 |   3573 tok/s | 4m 3s
+05:20:21 | INFO | step     50 | loss 7.4875 | lr 1.87e-04 | grad 1.66 |   3524 tok/s | 4m 49s
+05:20:22 | INFO | eval step 50 | val_loss 7.3619 | ppl 1574.76 | best 7.3619 *
+05:21:08 | INFO | step     60 | loss 7.2242 | lr 2.25e-04 | grad 1.55 |   3465 tok/s | 5m 36s
+05:21:54 | INFO | step     70 | loss 6.9393 | lr 2.62e-04 | grad 1.53 |   3565 tok/s | 6m 22s
+05:22:42 | INFO | step     80 | loss 6.6315 | lr 3.00e-04 | grad 1.35 |   3390 tok/s | 7m 10s
+05:23:28 | INFO | step     90 | loss 6.3052 | lr 3.00e-04 | grad 1.39 |   3517 tok/s | 7m 57s
+05:24:14 | INFO | step    100 | loss 6.0038 | lr 3.00e-04 | grad 1.38 |   3550 tok/s | 8m 43s
+05:24:15 | INFO | eval step 100 | val_loss 5.9363 | ppl 378.53 | best 5.9363 *
+05:25:02 | INFO | step    110 | loss 5.7858 | lr 3.00e-04 | grad 1.33 |   3447 tok/s | 9m 30s
+05:25:47 | INFO | step    120 | loss 5.5468 | lr 3.00e-04 | grad 1.38 |   3560 tok/s | 10m 16s
+05:26:34 | INFO | step    130 | loss 5.3767 | lr 2.99e-04 | grad 1.12 |   3500 tok/s | 11m 3s
+05:27:23 | INFO | step    140 | loss 5.1587 | lr 2.99e-04 | grad 1.19 |   3332 tok/s | 11m 52s
+05:28:09 | INFO | step    150 | loss 5.0282 | lr 2.99e-04 | grad 1.06 |   3534 tok/s | 12m 38s
+05:28:10 | INFO | eval step 150 | val_loss 5.0090 | ppl 149.75 | best 5.0090 *
+05:28:57 | INFO | step    160 | loss 4.8875 | lr 2.98e-04 | grad 1.17 |   3427 tok/s | 13m 25s
+05:29:43 | INFO | step    170 | loss 4.7194 | lr 2.98e-04 | grad 1.10 |   3503 tok/s | 14m 12s
+05:30:30 | INFO | step    180 | loss 4.5583 | lr 2.97e-04 | grad 1.41 |   3516 tok/s | 14m 58s
+05:31:16 | INFO | step    190 | loss 4.5006 | lr 2.97e-04 | grad 0.99 |   3519 tok/s | 15m 45s
+05:32:03 | INFO | step    200 | loss 4.3900 | lr 2.96e-04 | grad 1.79 |   3515 tok/s | 16m 31s
+05:32:04 | INFO | eval step 200 | val_loss 4.4368 | ppl 84.51 | best 4.4368 *
+05:32:54 | INFO | step    210 | loss 4.3172 | lr 2.95e-04 | grad 1.54 |   3179 tok/s | 17m 22s
+05:33:41 | INFO | step    220 | loss 4.2937 | lr 2.95e-04 | grad 1.44 |   3480 tok/s | 18m 9s
+05:34:28 | INFO | step    230 | loss 4.1966 | lr 2.94e-04 | grad 1.58 |   3504 tok/s | 18m 56s
+05:35:14 | INFO | step    240 | loss 4.1069 | lr 2.93e-04 | grad 1.34 |   3490 tok/s | 19m 43s
+05:36:01 | INFO | step    250 | loss 3.9858 | lr 2.92e-04 | grad 1.48 |   3527 tok/s | 20m 29s
+05:36:02 | INFO | eval step 250 | val_loss 4.0820 | ppl 59.26 | best 4.0820 *
+05:36:48 | INFO | step    260 | loss 3.9341 | lr 2.91e-04 | grad 1.55 |   3443 tok/s | 21m 16s
+05:37:35 | INFO | step    270 | loss 3.9131 | lr 2.90e-04 | grad 1.99 |   3500 tok/s | 22m 3s
+05:38:21 | INFO | step    280 | loss 3.8632 | lr 2.89e-04 | grad 2.08 |   3518 tok/s | 22m 49s
+05:39:07 | INFO | step    290 | loss 3.7734 | lr 2.88e-04 | grad 1.62 |   3545 tok/s | 23m 35s
+05:39:55 | INFO | step    300 | loss 3.7143 | lr 2.87e-04 | grad 2.00 |   3387 tok/s | 24m 24s
+05:39:56 | INFO | eval step 300 | val_loss 3.7859 | ppl 44.08 | best 3.7859 *
+05:40:43 | INFO | step    310 | loss 3.6702 | lr 2.85e-04 | grad 1.95 |   3385 tok/s | 25m 12s
+05:41:30 | INFO | step    320 | loss 3.6295 | lr 2.84e-04 | grad 1.89 |   3519 tok/s | 25m 58s
+05:42:16 | INFO | step    330 | loss 3.5361 | lr 2.83e-04 | grad 1.93 |   3554 tok/s | 26m 44s
+05:43:04 | INFO | step    340 | loss 3.4657 | lr 2.81e-04 | grad 1.80 |   3359 tok/s | 27m 33s
+05:43:51 | INFO | step    350 | loss 3.4478 | lr 2.80e-04 | grad 2.02 |   3486 tok/s | 28m 20s
+05:43:52 | INFO | eval step 350 | val_loss 3.5257 | ppl 33.98 | best 3.5257 *
+05:44:39 | INFO | step    360 | loss 3.3914 | lr 2.79e-04 | grad 1.94 |   3428 tok/s | 29m 7s
+05:45:26 | INFO | step    370 | loss 3.3544 | lr 2.77e-04 | grad 1.88 |   3473 tok/s | 29m 54s
+05:46:12 | INFO | step    380 | loss 3.3290 | lr 2.75e-04 | grad 2.25 |   3497 tok/s | 30m 41s
+05:46:59 | INFO | step    390 | loss 3.2643 | lr 2.74e-04 | grad 2.33 |   3464 tok/s | 31m 28s
+05:47:46 | INFO | step    400 | loss 3.2470 | lr 2.72e-04 | grad 2.53 |   3526 tok/s | 32m 14s
+05:47:47 | INFO | eval step 400 | val_loss 3.3444 | ppl 28.34 | best 3.3444 *
+05:48:35 | INFO | step    410 | loss 3.1419 | lr 2.71e-04 | grad 1.80 |   3329 tok/s | 33m 3s
+05:49:22 | INFO | step    420 | loss 3.0853 | lr 2.69e-04 | grad 2.39 |   3493 tok/s | 33m 50s
+05:50:09 | INFO | step    430 | loss 3.1148 | lr 2.67e-04 | grad 2.10 |   3444 tok/s | 34m 37s
+05:50:55 | INFO | step    440 | loss 3.0963 | lr 2.65e-04 | grad 2.09 |   3531 tok/s | 35m 24s
+05:51:41 | INFO | step    450 | loss 3.0086 | lr 2.63e-04 | grad 2.18 |   3521 tok/s | 36m 10s
+05:51:43 | INFO | eval step 450 | val_loss 3.1413 | ppl 23.13 | best 3.1413 *
+05:52:29 | INFO | step    460 | loss 3.0066 | lr 2.61e-04 | grad 1.76 |   3423 tok/s | 36m 58s
+05:53:38 | INFO | step    470 | loss 2.9435 | lr 2.59e-04 | grad 2.03 |   2360 tok/s | 38m 7s
+05:54:50 | INFO | step    480 | loss 2.9404 | lr 2.57e-04 | grad 1.57 |   2266 tok/s | 39m 19s
+05:55:37 | INFO | step    490 | loss 2.8181 | lr 2.55e-04 | grad 2.21 |   3475 tok/s | 40m 6s
+05:56:24 | INFO | step    500 | loss 2.7699 | lr 2.53e-04 | grad 2.01 |   3501 tok/s | 40m 52s
+05:56:25 | INFO | eval step 500 | val_loss 2.9917 | ppl 19.92 | best 2.9917 *
+05:57:12 | INFO | step    510 | loss 2.7936 | lr 2.51e-04 | grad 1.79 |   3365 tok/s | 41m 41s
+05:57:59 | INFO | step    520 | loss 2.7781 | lr 2.49e-04 | grad 2.21 |   3514 tok/s | 42m 27s
+05:58:45 | INFO | step    530 | loss 2.7542 | lr 2.47e-04 | grad 2.00 |   3505 tok/s | 43m 14s
+05:59:32 | INFO | step    540 | loss 2.7287 | lr 2.45e-04 | grad 1.82 |   3500 tok/s | 44m 0s
+06:00:20 | INFO | step    550 | loss 2.6565 | lr 2.43e-04 | grad 1.87 |   3427 tok/s | 44m 48s
+06:00:21 | INFO | eval step 550 | val_loss 2.8315 | ppl 16.97 | best 2.8315 *
+06:01:09 | INFO | step    560 | loss 2.6991 | lr 2.40e-04 | grad 2.06 |   3334 tok/s | 45m 37s
+06:01:55 | INFO | step    570 | loss 2.6581 | lr 2.38e-04 | grad 1.71 |   3526 tok/s | 46m 23s
+06:02:41 | INFO | step    580 | loss 2.5775 | lr 2.36e-04 | grad 2.07 |   3520 tok/s | 47m 10s
+06:03:27 | INFO | step    590 | loss 2.5129 | lr 2.33e-04 | grad 2.19 |   3536 tok/s | 47m 56s
+06:04:14 | INFO | step    600 | loss 2.5109 | lr 2.31e-04 | grad 2.42 |   3499 tok/s | 48m 42s
+06:04:15 | INFO | eval step 600 | val_loss 2.6931 | ppl 14.78 | best 2.6931 *
+06:05:03 | INFO | step    610 | loss 2.5162 | lr 2.28e-04 | grad 2.31 |   3312 tok/s | 49m 32s
+06:05:50 | INFO | step    620 | loss 2.4816 | lr 2.26e-04 | grad 2.23 |   3470 tok/s | 50m 19s
+06:06:37 | INFO | step    630 | loss 2.4559 | lr 2.24e-04 | grad 1.91 |   3513 tok/s | 51m 5s
+06:07:23 | INFO | step    640 | loss 2.4364 | lr 2.21e-04 | grad 1.68 |   3527 tok/s | 51m 52s
+06:08:10 | INFO | step    650 | loss 2.4398 | lr 2.19e-04 | grad 1.86 |   3499 tok/s | 52m 38s
+06:08:11 | INFO | eval step 650 | val_loss 2.5549 | ppl 12.87 | best 2.5549 *
+06:08:57 | INFO | step    660 | loss 2.3413 | lr 2.16e-04 | grad 2.50 |   3422 tok/s | 53m 26s
+06:09:45 | INFO | step    670 | loss 2.3027 | lr 2.13e-04 | grad 2.02 |   3442 tok/s | 54m 13s
+06:10:36 | INFO | step    680 | loss 2.2904 | lr 2.11e-04 | grad 2.40 |   3162 tok/s | 55m 5s
+06:11:28 | INFO | step    690 | loss 2.3280 | lr 2.08e-04 | grad 2.15 |   3155 tok/s | 55m 57s
+06:12:20 | INFO | step    700 | loss 2.3080 | lr 2.06e-04 | grad 1.96 |   3159 tok/s | 56m 48s
+06:12:21 | INFO | eval step 700 | val_loss 2.4286 | ppl 11.34 | best 2.4286 *
+06:13:13 | INFO | step    710 | loss 2.2471 | lr 2.03e-04 | grad 2.27 |   3075 tok/s | 57m 41s
+06:14:06 | INFO | step    720 | loss 2.2793 | lr 2.00e-04 | grad 2.00 |   3051 tok/s | 58m 35s
+06:15:00 | INFO | step    730 | loss 2.2252 | lr 1.98e-04 | grad 2.05 |   3045 tok/s | 59m 28s
+06:16:00 | INFO | step    740 | loss 2.1734 | lr 1.95e-04 | grad 2.06 |   2701 tok/s | 1h 0m
+06:16:54 | INFO | step    750 | loss 2.1833 | lr 1.92e-04 | grad 2.60 |   3023 tok/s | 1h 1m
+06:16:56 | INFO | eval step 750 | val_loss 2.3321 | ppl 10.30 | best 2.3321 *
+06:17:48 | INFO | step    760 | loss 2.1717 | lr 1.90e-04 | grad 2.03 |   3058 tok/s | 1h 2m
+06:18:41 | INFO | step    770 | loss 2.1328 | lr 1.87e-04 | grad 2.03 |   3082 tok/s | 1h 3m
+06:19:30 | INFO | step    780 | loss 2.1099 | lr 1.84e-04 | grad 1.75 |   3318 tok/s | 1h 3m
+06:20:21 | INFO | step    790 | loss 2.0868 | lr 1.81e-04 | grad 2.04 |   3172 tok/s | 1h 4m
+06:21:11 | INFO | step    800 | loss 2.0582 | lr 1.79e-04 | grad 2.43 |   3289 tok/s | 1h 5m
+06:21:12 | INFO | eval step 800 | val_loss 2.2478 | ppl 9.47 | best 2.2478 *
+06:22:06 | INFO | step    810 | loss 2.0711 | lr 1.76e-04 | grad 2.24 |   2959 tok/s | 1h 6m
+06:22:58 | INFO | step    820 | loss 2.0158 | lr 1.73e-04 | grad 1.97 |   3164 tok/s | 1h 7m
+06:23:47 | INFO | step    830 | loss 1.9988 | lr 1.71e-04 | grad 1.70 |   3304 tok/s | 1h 8m
+06:24:38 | INFO | step    840 | loss 2.0274 | lr 1.68e-04 | grad 1.69 |   3197 tok/s | 1h 9m
+06:25:28 | INFO | step    850 | loss 1.9652 | lr 1.65e-04 | grad 2.07 |   3257 tok/s | 1h 9m
+06:25:29 | INFO | eval step 850 | val_loss 2.1608 | ppl 8.68 | best 2.1608 *
+06:26:18 | INFO | step    860 | loss 1.9191 | lr 1.62e-04 | grad 2.02 |   3251 tok/s | 1h 10m
+06:27:10 | INFO | step    870 | loss 1.9471 | lr 1.59e-04 | grad 1.70 |   3181 tok/s | 1h 11m
+06:28:00 | INFO | step    880 | loss 1.9485 | lr 1.57e-04 | grad 1.93 |   3276 tok/s | 1h 12m
+06:28:50 | INFO | step    890 | loss 1.9558 | lr 1.54e-04 | grad 3.26 |   3268 tok/s | 1h 13m
+06:29:39 | INFO | step    900 | loss 1.9024 | lr 1.51e-04 | grad 1.97 |   3297 tok/s | 1h 14m
+06:29:40 | INFO | eval step 900 | val_loss 2.0813 | ppl 8.01 | best 2.0813 *
+06:30:33 | INFO | step    910 | loss 1.8454 | lr 1.49e-04 | grad 1.86 |   3044 tok/s | 1h 15m
+06:31:22 | INFO | step    920 | loss 1.8212 | lr 1.46e-04 | grad 1.97 |   3312 tok/s | 1h 15m
+06:32:11 | INFO | step    930 | loss 1.8376 | lr 1.43e-04 | grad 2.13 |   3322 tok/s | 1h 16m
+06:33:01 | INFO | step    940 | loss 1.8513 | lr 1.40e-04 | grad 1.71 |   3293 tok/s | 1h 17m
+06:33:51 | INFO | step    950 | loss 1.8361 | lr 1.38e-04 | grad 2.01 |   3262 tok/s | 1h 18m
+06:33:52 | INFO | eval step 950 | val_loss 1.9965 | ppl 7.36 | best 1.9965 *
+06:34:41 | INFO | step    960 | loss 1.8247 | lr 1.35e-04 | grad 1.89 |   3212 tok/s | 1h 19m
+06:35:32 | INFO | step    970 | loss 1.8088 | lr 1.32e-04 | grad 2.16 |   3203 tok/s | 1h 20m
+06:36:22 | INFO | step    980 | loss 1.7350 | lr 1.30e-04 | grad 1.78 |   3285 tok/s | 1h 20m
+06:37:12 | INFO | step    990 | loss 1.7592 | lr 1.27e-04 | grad 1.73 |   3286 tok/s | 1h 21m
+06:38:01 | INFO | step   1000 | loss 1.7092 | lr 1.24e-04 | grad 2.53 |   3292 tok/s | 1h 22m
+06:38:02 | INFO | eval step 1000 | val_loss 1.9289 | ppl 6.88 | best 1.9289 *
+06:38:55 | INFO | step   1010 | loss 1.7823 | lr 1.22e-04 | grad 1.90 |   3067 tok/s | 1h 23m
+06:39:45 | INFO | step   1020 | loss 1.7440 | lr 1.19e-04 | grad 2.02 |   3245 tok/s | 1h 24m
+06:40:35 | INFO | step   1030 | loss 1.7265 | lr 1.17e-04 | grad 1.98 |   3270 tok/s | 1h 25m
+06:41:24 | INFO | step   1040 | loss 1.6971 | lr 1.14e-04 | grad 1.93 |   3285 tok/s | 1h 25m
+06:42:16 | INFO | step   1050 | loss 1.7204 | lr 1.11e-04 | grad 1.81 |   3180 tok/s | 1h 26m
+06:42:17 | INFO | eval step 1050 | val_loss 1.8844 | ppl 6.58 | best 1.8844 *
+06:43:07 | INFO | step   1060 | loss 1.6632 | lr 1.09e-04 | grad 1.74 |   3189 tok/s | 1h 27m
+06:43:59 | INFO | step   1070 | loss 1.6334 | lr 1.06e-04 | grad 2.01 |   3118 tok/s | 1h 28m
+06:44:51 | INFO | step   1080 | loss 1.6442 | lr 1.04e-04 | grad 1.64 |   3177 tok/s | 1h 29m
+06:45:40 | INFO | step   1090 | loss 1.6457 | lr 1.02e-04 | grad 1.90 |   3278 tok/s | 1h 30m
+06:46:31 | INFO | step   1100 | loss 1.6521 | lr 9.91e-05 | grad 1.98 |   3240 tok/s | 1h 30m
+06:46:32 | INFO | eval step 1100 | val_loss 1.8175 | ppl 6.16 | best 1.8175 *
+06:47:23 | INFO | step   1110 | loss 1.6094 | lr 9.67e-05 | grad 1.67 |   3121 tok/s | 1h 31m
+06:48:14 | INFO | step   1120 | loss 1.6412 | lr 9.43e-05 | grad 2.19 |   3223 tok/s | 1h 32m
+06:49:03 | INFO | step   1130 | loss 1.6351 | lr 9.20e-05 | grad 1.75 |   3306 tok/s | 1h 33m
+06:49:53 | INFO | step   1140 | loss 1.5942 | lr 8.97e-05 | grad 1.61 |   3290 tok/s | 1h 34m
+06:50:43 | INFO | step   1150 | loss 1.5775 | lr 8.74e-05 | grad 1.68 |   3255 tok/s | 1h 35m
+06:50:44 | INFO | eval step 1150 | val_loss 1.7723 | ppl 5.88 | best 1.7723 *
+06:51:34 | INFO | step   1160 | loss 1.5808 | lr 8.52e-05 | grad 1.57 |   3176 tok/s | 1h 36m
+06:52:24 | INFO | step   1170 | loss 1.5783 | lr 8.30e-05 | grad 1.64 |   3250 tok/s | 1h 36m
+06:53:15 | INFO | step   1180 | loss 1.5516 | lr 8.08e-05 | grad 1.59 |   3250 tok/s | 1h 37m
+06:54:06 | INFO | step   1190 | loss 1.5643 | lr 7.87e-05 | grad 1.83 |   3175 tok/s | 1h 38m
+06:54:57 | INFO | step   1200 | loss 1.5383 | lr 7.66e-05 | grad 1.96 |   3212 tok/s | 1h 39m
+06:54:58 | INFO | eval step 1200 | val_loss 1.7845 | ppl 5.96 | best 1.7723
+06:55:49 | INFO | step   1210 | loss 1.5209 | lr 7.45e-05 | grad 1.90 |   3109 tok/s | 1h 40m
+06:56:40 | INFO | step   1220 | loss 1.5341 | lr 7.25e-05 | grad 1.78 |   3217 tok/s | 1h 41m
+06:57:31 | INFO | step   1230 | loss 1.5471 | lr 7.05e-05 | grad 1.60 |   3223 tok/s | 1h 41m
+06:58:22 | INFO | step   1240 | loss 1.4764 | lr 6.86e-05 | grad 1.80 |   3192 tok/s | 1h 42m
+06:59:13 | INFO | step   1250 | loss 1.5048 | lr 6.67e-05 | grad 1.67 |   3192 tok/s | 1h 43m
+06:59:14 | INFO | eval step 1250 | val_loss 1.6960 | ppl 5.45 | best 1.6960 *
+07:00:05 | INFO | step   1260 | loss 1.4643 | lr 6.48e-05 | grad 1.79 |   3143 tok/s | 1h 44m
+07:00:55 | INFO | step   1270 | loss 1.5135 | lr 6.30e-05 | grad 2.04 |   3250 tok/s | 1h 45m
+07:01:45 | INFO | step   1280 | loss 1.5043 | lr 6.12e-05 | grad 1.75 |   3260 tok/s | 1h 46m
+07:02:35 | INFO | step   1290 | loss 1.5033 | lr 5.95e-05 | grad 1.81 |   3259 tok/s | 1h 47m
+07:03:26 | INFO | step   1300 | loss 1.4578 | lr 5.78e-05 | grad 1.85 |   3238 tok/s | 1h 47m
+07:03:27 | INFO | eval step 1300 | val_loss 1.6604 | ppl 5.26 | best 1.6604 *
+07:04:18 | INFO | step   1310 | loss 1.4401 | lr 5.61e-05 | grad 1.85 |   3095 tok/s | 1h 48m
+07:05:09 | INFO | step   1320 | loss 1.4276 | lr 5.45e-05 | grad 1.71 |   3253 tok/s | 1h 49m
+07:06:02 | INFO | step   1330 | loss 1.4374 | lr 5.29e-05 | grad 1.79 |   3033 tok/s | 1h 50m
+07:06:53 | INFO | step   1340 | loss 1.4683 | lr 5.14e-05 | grad 1.57 |   3238 tok/s | 1h 51m
+07:07:43 | INFO | step   1350 | loss 1.4136 | lr 5.00e-05 | grad 1.70 |   3221 tok/s | 1h 52m
+07:07:45 | INFO | eval step 1350 | val_loss 1.6449 | ppl 5.18 | best 1.6449 *
+07:08:35 | INFO | step   1360 | loss 1.4710 | lr 4.85e-05 | grad 2.02 |   3184 tok/s | 1h 53m
+07:09:25 | INFO | step   1370 | loss 1.4631 | lr 4.72e-05 | grad 1.61 |   3252 tok/s | 1h 53m
+07:10:15 | INFO | step   1380 | loss 1.4262 | lr 4.59e-05 | grad 1.44 |   3236 tok/s | 1h 54m
+07:11:05 | INFO | step   1390 | loss 1.4401 | lr 4.46e-05 | grad 1.62 |   3265 tok/s | 1h 55m
+07:11:57 | INFO | step   1400 | loss 1.4402 | lr 4.34e-05 | grad 1.72 |   3138 tok/s | 1h 56m
+07:11:59 | INFO | eval step 1400 | val_loss 1.6149 | ppl 5.03 | best 1.6149 *
+07:12:52 | INFO | step   1410 | loss 1.4404 | lr 4.22e-05 | grad 1.50 |   2987 tok/s | 1h 57m
+07:13:45 | INFO | step   1420 | loss 1.3801 | lr 4.11e-05 | grad 1.77 |   3100 tok/s | 1h 58m
+07:14:37 | INFO | step   1430 | loss 1.4071 | lr 4.00e-05 | grad 1.49 |   3111 tok/s | 1h 59m
+07:15:30 | INFO | step   1440 | loss 1.3956 | lr 3.90e-05 | grad 1.72 |   3102 tok/s | 1h 59m
+07:16:22 | INFO | step   1450 | loss 1.3764 | lr 3.80e-05 | grad 1.67 |   3099 tok/s | 2h 0m
+07:16:23 | INFO | eval step 1450 | val_loss 1.6077 | ppl 4.99 | best 1.6077 *
+07:17:17 | INFO | step   1460 | loss 1.3611 | lr 3.71e-05 | grad 1.82 |   3009 tok/s | 2h 1m
+07:18:09 | INFO | step   1470 | loss 1.3633 | lr 3.63e-05 | grad 1.78 |   3109 tok/s | 2h 2m
+07:19:01 | INFO | step   1480 | loss 1.3853 | lr 3.55e-05 | grad 1.87 |   3127 tok/s | 2h 3m
+07:19:54 | INFO | step   1490 | loss 1.3967 | lr 3.47e-05 | grad 1.83 |   3113 tok/s | 2h 4m
+07:20:45 | INFO | step   1500 | loss 1.3626 | lr 3.40e-05 | grad 1.69 |   3153 tok/s | 2h 5m
+07:20:47 | INFO | eval step 1500 | val_loss 1.5853 | ppl 4.88 | best 1.5853 *
+07:21:41 | INFO | step   1510 | loss 1.3564 | lr 3.34e-05 | grad 1.65 |   2933 tok/s | 2h 6m
+07:22:34 | INFO | step   1520 | loss 1.4024 | lr 3.28e-05 | grad 1.96 |   3111 tok/s | 2h 7m
+07:23:25 | INFO | step   1530 | loss 1.3709 | lr 3.23e-05 | grad 1.58 |   3161 tok/s | 2h 7m
+07:24:18 | INFO | step   1540 | loss 1.3737 | lr 3.18e-05 | grad 1.63 |   3083 tok/s | 2h 8m
+07:25:09 | INFO | step   1550 | loss 1.3307 | lr 3.14e-05 | grad 1.71 |   3226 tok/s | 2h 9m
+07:25:10 | INFO | eval step 1550 | val_loss 1.5710 | ppl 4.81 | best 1.5710 *
+07:26:02 | INFO | step   1560 | loss 1.3581 | lr 3.10e-05 | grad 1.69 |   3074 tok/s | 2h 10m
+07:26:53 | INFO | step   1570 | loss 1.3543 | lr 3.07e-05 | grad 1.72 |   3174 tok/s | 2h 11m
+07:27:45 | INFO | step   1580 | loss 1.3729 | lr 3.04e-05 | grad 1.62 |   3129 tok/s | 2h 12m
+07:28:37 | INFO | step   1590 | loss 1.3581 | lr 3.03e-05 | grad 2.00 |   3180 tok/s | 2h 13m
+07:29:28 | INFO | step   1600 | loss 1.3422 | lr 3.01e-05 | grad 1.71 |   3179 tok/s | 2h 13m
+07:29:29 | INFO | eval step 1600 | val_loss 1.5472 | ppl 4.70 | best 1.5472 *
+07:30:22 | INFO | step   1610 | loss 1.3641 | lr 3.00e-05 | grad 1.58 |   3004 tok/s | 2h 14m
+07:31:14 | INFO | step   1620 | loss 1.3168 | lr 3.00e-05 | grad 1.73 |   3155 tok/s | 2h 15m
+07:31:16 | INFO | finished: {"step": 1620, "epoch": 19, "best_val": 1.5471665859222412, "val_loss": 1.5403592586517334, "val_unseen_loss": 1.5403592586517334, "stopped_early": false, "train_chunks": 5186, "val_chunks": 64, "parameters": 2098816, "elapsed_seconds": 8145.340248762997}

@@ -1,0 +1,12 @@
+{
+  "step": 3657,
+  "epoch": 0,
+  "best_val": 0.6564731585567114,
+  "val_loss": 0.6571012204850192,
+  "val_unseen_loss": 4.145108650958585,
+  "stopped_early": false,
+  "train_chunks": 468212,
+  "val_chunks": 510,
+  "parameters": 9573632,
+  "elapsed_seconds": 99690.145225418
+}

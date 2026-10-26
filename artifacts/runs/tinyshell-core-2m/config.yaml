@@ -1,0 +1,58 @@
+run_name: tinyshell-core-2m
+seed: 42
+data:
+  source_dir: data/raw/tldr
+  processed_dir: data/core
+  tokenizer_dir: artifacts/tokenizer
+  seed: 42
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  variants_per_example: 6
+  eval_examples: 1500
+  max_command_chars: 120
+  min_description_chars: 8
+  max_description_chars: 160
+model:
+  vocab_size: 4096
+  d_model: 128
+  n_layers: 6
+  n_heads: 4
+  intermediate_size: 512
+  max_seq_len: 256
+  rope_theta: 10000.0
+  dropout: 0.1
+  tie_embeddings: true
+train:
+  batch_size: 64
+  grad_accum_steps: 1
+  lr: 0.0003
+  min_lr: 3.0e-05
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  first_token_weight: 5.0
+  warmup_steps: 80
+  epochs: 20
+  eval_interval: 50
+  sample_interval: 100
+  save_interval: 500
+  log_interval: 10
+  num_workers: 0
+  num_threads: 4
+  device: cpu
+  output_dir: artifacts/runs
+  max_steps: null
+  early_stopping_patience: 10
+eval:
+  batch_size: 1
+  max_new_tokens: 64
+  temperature: 0.0
+  top_k: 1
+  splits:
+  - val
+  - test_seen
+  - test_paraphrase
+  num_failures: 50
+  max_examples: null

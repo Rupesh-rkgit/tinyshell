@@ -1,0 +1,580 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+\newcommand{\modelname}{TinyShell}
+\newcommand{\best}[1]{\textbf{#1}}
+
+\title{\textbf{\modelname{}: Diagnosing Data Shortcuts and the Limits of
+Scaling in a 10M-Parameter Natural-Language-to-Shell Model}}
+
+\author{TinyShell Contributors\\
+\normalsize Code, data pipeline, checkpoints, and evaluation logs:\\
+\normalsize \texttt{github.com/\dots/tinyshell} (this repository)}
+
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present \modelname{}, an end-to-end study of building natural-language-to-shell-command
+models from scratch on a CPU-only budget, culminating in a 9.6M-parameter
+decoder-only transformer trained on 100M tokens derived from the tldr-pages
+corpus. Because we control the data generator, we hold out three generalization
+axes independently---slot values, request phrasings, and entire command
+pages---and pair every neural result with a BM25 retrieval baseline. Three
+findings emerge. First, a widely used training recipe (naive sequence packing)
+teaches a shortcut: the model learns $P(\text{command}\mid \text{request},
+\text{previous example})$ rather than $P(\text{command}\mid \text{request})$,
+reaching $0.000$ exact match despite healthy validation loss; blocking
+cross-example attention at evaluation time on the frozen checkpoint improves
+validation loss by $0.56$ nats, directly evidencing the shortcut, and
+retraining with document-aligned packing (block-diagonal masks with
+within-example position reset) removes it. Second, a controlled
+subset experiment shows the residual failure of a 2.1M-parameter model is
+decomposable: command-family selection is label-space limited (restricting
+$3{,}651$ first tokens to $111$ raises family selection from $0.36$ to
+$0.87$), while argument composition is capacity limited. Third, scaling
+$4.6\times$ in parameters and $10.9\times$ in tokens converts seen-command
+performance from non-functional to competitive (exact match $0.46$--$0.56$,
+token F1 $0.60$--$0.68$, paraphrase-robust) but leaves unseen-page exact
+match at $0.005$ while \emph{regressing} unseen-page validation loss
+($3.80\!\to\!4.15$): phrasing diversity hyper-fits known pages rather than
+teaching new tools. On unseen pages the generative model reaches parity or
+better with retrieval on token F1 for the first time ($+0.001$ to $+0.029$),
+an initial signature of composition over memorization. We release the full
+pipeline---data cards, model cards, checkpoints, evaluation logs, and a
+learning book---as a reproducible testbed for composition, retrieval
+augmentation, and evaluation methodology at tiny scale.
+\end{abstract}
+
+\begin{figure}[t]
+\centering
+\small
+\begin{tabular}{c}
+tldr Markdown pages (pinned commit, CC-BY-4.0) \\
+$\downarrow$ \; parse $\cdot$ filter (unsafe/substitution/multi-statement) $\cdot$ slot filling $\cdot$ 16 prompt styles \\
+base examples $\rightarrow$ \; train / val / test splits \emph{by page} (80/10/10) \\
+$\downarrow$ \; byte-level BPE (4{,}096) $\cdot$ prompt masking ($-100$) $\cdot$ document-aligned packing (256 tokens) \\
+decoder-only transformer (RMSNorm $\cdot$ RoPE $\cdot$ causal+block-diag SDPA $\cdot$ SwiGLU $\cdot$ tied embeddings) \\
+$\downarrow$ \; greedy decoding $\rightarrow$ clean command $\rightarrow$ \texttt{bash -n} + risk warning $\rightarrow$ CLI (never executes) \\
+$\downarrow$ \; six orthogonal evaluation splits + BM25 retrieval baseline
+\end{tabular}
+\caption{The \modelname{} pipeline. Every stage is released code; every
+downstream number in this paper is reproducible from the pinned corpus
+commit and per-run metadata.}
+\label{fig:pipeline}
+\end{figure}
+
+\section{Introduction}
+\label{sec:intro}
+
+Mapping an English request to a single shell command is a bounded, checkable,
+and practically useful instance of semantic parsing: outputs are short (median
+26 characters), correctness is measurable without human judges, and the
+resource a model must possess---a vocabulary of tools and flags---is small
+enough to study exhaustively. Prior work established the task and its
+difficulty with web-scale corpora and seq2seq semantic parsers
+\citep{lin2017tellina,lin2018nl2bash}; modern code LLMs solve it broadly but
+opaquely at billions of parameters \citep{chen2021codex,roziere2023codellama}.
+What is missing is a \emph{small, fully instrumented} testbed in which every
+design decision---corpus construction, tokenization, packing, objective,
+evaluation split design, and baselines---is visible, ablatable, and honest
+about failure. This paper describes \modelname{} (Figure~\ref{fig:pipeline}),
+such a testbed, and the measurement-driven story of its four training runs.
+
+Our contributions:
+
+\begin{enumerate}
+\item \textbf{A shortcut diagnosis with an eval-time causal test.} We show
+that naive sequence packing teaches cross-example copying, that validation
+loss conceals it, and that a \emph{frozen-checkpoint mask ablation}
+($3.866\!\to\!3.306$ nats) plus a behavioral prefix probe identify the
+mechanism without retraining (Section~\ref{sec:shortcut}).
+\item \textbf{A label-space/capacity decomposition.} A focused-subject
+experiment (111 command families, $5\times$ first-token loss weight) raises
+family selection from $0.36$ to $0.87$ with the same architecture, showing
+selection was label-space limited while argument composition remained
+capacity limited (Section~\ref{sec:core}).
+\item \textbf{A scaling result with orthogonal generalization axes.} Scaling
+$2.1\mathrm{M}\!\to\!9.6\mathrm{M}$ parameters and $9\mathrm{M}\!\to\!100\mathrm{M}$
+tokens at fixed page splits lifts seen-command exact match from
+$\leq\!0.002$ to $0.525$--$0.559$, leaves unseen-page exact match at
+$0.005$, and \emph{worsens} unseen-page validation loss from $3.80$ to
+$4.15$---quantifying that phrasing-diverse data hyper-fits known pages
+(Section~\ref{sec:scaling}, Table~\ref{tab:run3eval}, Table~\ref{tab:bm25}).
+\item \textbf{A generative-vs-retrieval accounting.} A BM25 baseline reaches
+$0.84$--$0.88$ exact on seen splits (evaluation requests are generated
+paraphrases of training data, making retrieval near-oracle there) and
+$\sim\!0.008$ on unseen pages; the 9.6M generative model matches or exceeds
+retrieval token F1 on all unseen splits ($+0.001$ to $+0.029$), the first
+evidence of compositional behavior at this scale
+(Table~\ref{tab:bm25}).
+\item \textbf{A released, reproducible research platform}: data and model
+cards, pinned corpus commit, per-run environment and git metadata,
+checkpoints, raw per-example predictions, and a 16-chapter learning book
+documenting every experiment (Section~\ref{sec:platform}).
+\end{enumerate}
+
+\section{Related Work}
+\label{sec:related}
+
+\textbf{NL-to-shell.} \citet{lin2017tellina} built Tellina, an RNN-based
+semantic parser with slot filling for bash one-liners, and
+\citet{lin2018nl2bash} released the NL2Bash corpus ($\sim$9{,}305
+expert-described commands, top-1 full-command accuracy $0.36$). \modelname{}
+differs in source (curated tldr-pages rather than scraped data), scale
+(from-scratch 2--10M parameters on CPU), and focus: generalization audit and
+baselines rather than leaderboard performance.
+
+\textbf{Instruction-tuned code models.} Codex \citep{chen2021codex}, Code
+Llama \citep{roziere2023codellama}, Llama-family models
+\citep{touvron2023llama,grattafiori2024llama3}, and instruction tuning
+\citep{ouyang2022instructgpt} solve shell questions broadly; we deliberately
+operate three orders of magnitude smaller to keep every mechanism measurable,
+in the spirit of TinyStories \citep{eldan2023tinystories}, TinyLlama
+\citep{zhang2024tinyllama}, and nanoGPT \citep{karpathy2023nanogpt}.
+
+\textbf{Sequence packing.} Packing variable-length samples into fixed-length
+rows is standard practice \citep{krell2021packing,dao2022flashattention};
+\citet{krell2021packing} formalize packing as bin packing and show
+block-diagonal masking plus position adjustments preserve mathematical
+equivalence; document-boundary masking with position reset is also used in
+conditioned generation \citep{copet2023musicgen}. Our contribution is
+\emph{diagnostic}: demonstrating that the contamination left in by naive
+packing is not a small accuracy dent but a learned conditional that silently
+changes the task, measurable by evaluating a frozen checkpoint under both
+masks.
+
+\textbf{Scaling laws and data mixture.} Scaling analyses
+\citep{kaplan2020scaling,hoffmann2022chinchilla} concern tokens and
+parameters for fixed distributions; our result concerns \emph{within-page
+variant scaling}, showing a regime where more tokens (all phrasings of known
+pages) improve interpolation and regress extrapolation. Retrieval-augmented
+generation \citep{lewis2020rag} and interactive execution environments
+\citep{yang2023intercode} frame our proposed remedies
+(Section~\ref{sec:future}).
+
+\section{Task and Data}
+\label{sec:data}
+
+\subsection{Corpus}
+The sole knowledge source is tldr-pages \citep{tldrpages}, pinned at commit
+\texttt{95062b79}\ (\texttt{pages/common} + \texttt{pages/linux}; CC-BY-4.0):
+6,803 pages / 30,308 raw examples yield 6,621 usable pages / 28,659 usable
+base examples after filtering. Each example is a one-line description plus a
+command template with \texttt{\{\{placeholder\}\}} slots. Filters reject
+multi-statement, substitution-heavy, history-expanded, interactive, and
+oversized commands; the run-3 revision additionally rejects cron-shaped
+first tokens, leading \texttt{!}, and process substitution ($-139$
+examples). Slots are filled from hand-written pools (file, path, user,
+host, package, port, pattern, version) with per-variant fresh values and
+tldr alternative-syntax resolution (\texttt{\{\{[-a|-{}-all]\}\}}).
+
+\subsection{Requests, styles, and splits}
+Each base example is rendered into natural-language requests by 16 templates
+(``styles''): 12 train styles (indices 0--7 plus 12--15), with styles
+8--11 \emph{held out} for validation and testing. Slot mentions inlined in
+the description are substituted inline; remaining slots are declared in an
+appended context sentence (``Assume the file is \texttt{/tmp/notes.txt}.'').
+
+Splits are by \emph{page} (deterministic hash of page title, 80/10/10), so
+all examples of a command fall in exactly one split. Six evaluation splits
+of 1{,}500 requests each (v1; identical page split reused in run 3)
+orthogonalize three axes:
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{llll}
+\toprule
+Split & Pages & Prompt style & Measures \\
+\midrule
+\texttt{val} & seen & 8 (held out) & checkpoint selection (loss) \\
+\texttt{val\_unseen} & unseen & seen & command generalization (loss) \\
+\texttt{test\_seen} & seen & 9 (held out) + new slots & slot filling + style robustness \\
+\texttt{test\_paraphrase} & seen & 10--11 (unseen) & phrasing robustness \\
+\texttt{test\_unseen} & unseen & seen & command generalization \\
+\texttt{test\_unseen\_paraphrase} & unseen & 10--11 & both axes held out \\
+\bottomrule
+\end{tabular}
+\caption{Evaluation splits. Holding out slots, styles, and pages
+independently is what allows the scaling analysis of
+Section~\ref{sec:scaling} to attribute gains and failures precisely.}
+\label{tab:splits}
+\end{table}
+
+\subsection{Versions}
+Dataset v1 (runs 1--2, core): 6 variants per base example $\rightarrow$ 135,860
+training requests $\rightarrow$ 9.16M packed tokens per epoch. Dataset XL
+(run 3): 150 variants per example with 4 additional train styles
+$\rightarrow$ 1,303,083 requests $\rightarrow$ 99,992,950 packed training
+tokens in 468,212 document-aligned chunks (17,411,259 supervised label
+tokens; max example 229 tokens). Slot-free examples saturate at 12 distinct
+phrasings; slot-bearing examples scale near-linearly. The same page split is
+preserved, keeping cross-run comparisons directional. Risk labels
+(129{,}177 safe / 14{,}822 caution / 861 destructive) are regex heuristics
+used for analysis and CLI warnings, never as training targets;
+\texttt{bash -n} validity of a 2{,}000-command sample is $99.85\%$.
+
+\section{Model and Objective}
+\label{sec:model}
+
+\modelname{} is a pre-norm decoder-only transformer
+\citep{vaswani2017attention,touvron2023llama}: RMSNorm \citep{zhang2019rmsnorm},
+RoPE \citep{su2021roformer}, fused scaled-dot-product attention
+\citep{dao2022flashattention}, SwiGLU MLPs \citep{shazeer2020glu}, and tied
+input/output embeddings \citep{press2017tying}. Byte-level BPE
+\citep{sennrich2016bpe} with a 4{,}096 vocabulary (five reserved special
+tokens) and a fixed three-role chat template (system/user/assistant) are
+shared by all runs; prompt tokens are masked with $-100$ so the loss covers
+only the command and EOS. Positions are per-example (restart at 0 at every
+packed document), and attention is causal \emph{and} block-diagonal over
+packed documents (Section~\ref{sec:shortcut}).
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lcc}
+\toprule
+ & 2.1M (runs 1--2, core) & 9.6M (run 3) \\
+\midrule
+$d_{\text{model}}$ / layers / heads & 128 / 6 / 4 & 256 / 10 / 8 \\
+Head dim & 32 & 32 \\
+SwiGLU intermediate & 512 & 768 \\
+Context / vocab & 256 / 4{,}096 & 256 / 4{,}096 \\
+Dropout & 0.05 (core 0.1) & 0.05 \\
+Total parameters & 2{,}098{,}816 & \best{9{,}573{,}632} \\
+Non-embedding & 1{,}574{,}528 & 8{,}525{,}056 \\
+Embedding share & 25.0\% & 11.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Architectures. Head dimension is fixed at 32 across scales to keep
+the capacity comparison clean.}
+\label{tab:arch}
+\end{table}
+
+\textbf{Objective.} Token cross-entropy on supervised positions, averaged
+token-weighted. An optional \emph{first-token weight} $w$ multiplies the loss
+on the first command token of every packed example (the command-family
+decision); $w{=}5.0$ in the core diagnostic, $w{=}1.0$ elsewhere.
+
+\section{Training Setup}
+\label{sec:setup}
+
+AdamW \citep{loshchilov2019adamw} with decoupled decay $0.1$ on matrices
+only; $\beta{=}(0.9,0.95)$; lr $3\mathrm{e}{-4}$ cosine-annealed to
+$3\mathrm{e}{-5}$ after linear warmup (200--300 steps); gradient clipping at
+global norm $1.0$; fp32 on 4 vCPU ARM64 (Neoverse-N1), 4 threads. Examples
+are packed complete-only into 256-token rows ($\sim$14\% padding),
+memory-mapped as \texttt{uint16}/\texttt{int32}/\texttt{int16} arrays.
+Checkpoints store model, optimizer, scheduler, and progress (resumable);
+best-checkpoint selection uses \texttt{val} (held-out style 8 on seen
+pages). Seed 42 throughout; per-run snapshots of config, environment
+(Python 3.12.3, torch 2.14.1+cpu), git commit, and tokenizer are stored
+alongside logs.
+
+\section{The Packing Shortcut and Its Repair}
+\label{sec:shortcut}
+
+\textbf{Run 1 (naive packing).} Concatenating all examples into a continuous
+stream and slicing into 256-token rows lets position $t$ of example $N$
+attend to the \emph{command of example $N{-}1$}. The model trained to
+plausible loss (best val $3.9749$) but generated $0.000$ exact match with
+$72\%$ of predictions beginning with \texttt{sudo} (references: $6\%$),
+e.g.\ \emph{``list all files including hidden ones''} $\rightarrow$
+\texttt{sudo aa-cli -{}-list}.
+
+\textbf{Diagnosis without retraining.} Two probes on the frozen checkpoint:
+(i) \emph{Prefix probe}---prepending an unrelated prior example to the prompt
+flips the prediction to copy it; (ii) \emph{mask ablation}---evaluating the
+same packed validation set with a block-diagonal document mask lowers
+validation loss from $3.866$ to $3.306$ ($-0.56$ nats). If preceding
+examples were useful context, masking them would \emph{hurt}; the gain
+proves a harmful learned dependence. Both probes are possible because
+document ids are a runtime input.
+
+\textbf{Run 2 (document-aligned packing).} We then retrained with
+complete-example packing, per-token document ids, within-example positions,
+and the block-diagonal causal mask---the train-time counterpart of the eval
+mask, and the standard remedy for cross-contamination
+\citep{krell2021packing}. Same architecture, data, and optimizer.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+ & Run 1 (naive) & Run 2 (doc-aligned) & $\Delta$ \\
+\midrule
+Best val loss & 3.9749 & \best{2.9377} & $-1.04$ \\
+Final val loss & 3.9771 & \best{2.9214} & $-1.06$ \\
+Val loss, unseen pages & 4.6025 & \best{3.7993} & $-0.80$ \\
+Exact match (best split) & 0.002 & 0.002 & $\approx$ \\
+Command match (best split) & 0.089 & 0.089 & $\approx$ \\
+Token F1 (best split) & 0.128 & 0.187 & $+0.06$ \\
+\bottomrule
+\end{tabular}
+\caption{Run 1 vs.\ run 2: removing the shortcut lowers loss by $>1$ nat and
+improves argument copying everywhere, but exact match remains $\approx 0$:
+the remaining gap is capacity/label-space, not masking.}
+\label{tab:run12}
+\end{table}
+
+The \texttt{sudo} prior persists (42\% of run-2 \texttt{test\_seen}
+predictions vs.\ 6.8\% of references), now traceable to data frequency
+rather than a copying shortcut.
+
+\section{Decomposing the Failure: Label Space vs.\ Capacity}
+\label{sec:core}
+
+We build a focused subset---pages of $\sim$100 curated common tools: 655
+pages, 17{,}317 requests, \textbf{111 distinct first command tokens}
+(vs.\ 3{,}651 broad)---and train the identical 2.1M model for 20 epochs with
+dropout $0.1$ and first-token weight $5.0$ (2.2\,h).
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccccc}
+\toprule
+Split (core) & N & Exact & Command & Token F1 & Valid bash \\
+\midrule
+val & 187 & 0.048 & \best{0.866} & 0.227 & 0.952 \\
+test\_seen & 179 & 0.028 & \best{0.737} & 0.155 & 0.983 \\
+test\_paraphrase & 211 & 0.057 & \best{0.924} & 0.260 & 0.981 \\
+\bottomrule
+\end{tabular}
+\caption{Core-subject diagnostic. Command-family selection rises from $0.36$
+(the broad run-2 model scored on the same examples) to $0.74$--$0.92$;
+\texttt{sudo} over-prediction drops from $42\%$ to $6.7\%$; exact match
+stays low ($0.028$--$0.057$) because argument composition remains the
+bottleneck ($71\%$ of \texttt{test\_seen} errors are
+right-family-wrong-arguments).}
+\label{tab:core}
+\end{table}
+
+\textbf{Interpretation.} Family selection is \emph{label-space limited};
+argument composition is \emph{model/data limited}. This decomposition
+directed run 3's design budget toward capacity and data volume rather than
+architecture changes.
+
+\section{Scaling: 9.6M Parameters, 100M Tokens}
+\label{sec:scaling}
+
+Run 3 scales the proven design ($4.6\times$ parameters) over the XL corpus
+($10.9\times$ tokens; 150 variants/example; stricter filters; four extra
+train styles; held-out eval styles unchanged; same page split), trained one
+pass in 27.7\,h at $\sim$1{,}190 tokens/s: 3{,}657 steps, final train loss
+$\approx 0.13$, best val loss $\best{0.6565}$ (perplexity 1.93) at step
+3{,}500.
+
+\subsection{Loss results, and the headline regression}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+ & Run 1 & Run 2 & Run 3 \\
+\midrule
+Best val loss (seen pages) & 3.9749 & 2.9377 & \best{0.6565} \\
+Val loss, unseen pages & 4.6025 & 3.7993 & 4.1451 \\
+Seen/unseen gap (nats) & 0.63 & 0.87 & \textbf{3.49} \\
+\bottomrule
+\end{tabular}
+\caption{Validation loss. Run 3 \emph{regresses} on unseen pages: 150
+variants per page hyper-fit known command families. The seen/unseen loss gap
+widens from $0.87$ to $3.49$ nats.}
+\label{tab:losses}
+\end{table}
+
+\subsection{Generation results}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccccc}
+\toprule
+Split & Exact & Command & Token F1 & Valid bash & p50 lat. \\
+\midrule
+val & 0.460 & 0.618 & 0.604 & 0.997 & 290\,ms \\
+val\_unseen & 0.011 & 0.138 & 0.315 & 0.995 & 227\,ms \\
+test\_seen & \best{0.525} & \best{0.692} & \best{0.644} & 0.997 & 245\,ms \\
+test\_paraphrase & \best{0.559} & \best{0.722} & \best{0.681} & 0.997 & 242\,ms \\
+test\_unseen & 0.005 & 0.111 & 0.289 & 0.989 & 229\,ms \\
+test\_unseen\_paraphrase & 0.005 & 0.098 & 0.292 & 0.991 & 242\,ms \\
+\bottomrule
+\end{tabular}
+\caption{Run 3 (\texttt{best} checkpoint, greedy, 1{,}500/split). Seen-command
+composition now works; paraphrase is the \emph{strongest} split; unseen-page
+exact match is unchanged from run 2's $\approx 0$.}
+\label{tab:run3eval}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{BM25} & \multicolumn{3}{c}{Model (run 3)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Split & Exact & Cmd & F1 & Exact & Cmd & F1 \\
+\midrule
+val & 0.851 & 0.932 & 0.947 & 0.460 & 0.618 & 0.604 \\
+val\_unseen & 0.009 & 0.135 & 0.286 & 0.011 & \best{0.138} & \best{0.315} \\
+test\_seen & 0.843 & 0.918 & 0.918 & 0.525 & 0.692 & 0.644 \\
+test\_paraphrase & 0.877 & 0.942 & 0.964 & 0.559 & 0.722 & 0.681 \\
+test\_unseen & 0.007 & 0.124 & 0.277 & 0.005 & 0.111 & \best{0.289} \\
+test\_unseen\_paraphrase & 0.008 & 0.114 & 0.291 & 0.005 & 0.098 & \best{0.292} \\
+\bottomrule
+\end{tabular}
+\caption{Generative model vs.\ BM25 retrieval \citep{robertson2009bm25} on
+identical examples. Retrieval is near-oracle on seen splits by construction
+(eval requests are paraphrases of training requests) and near-useless on
+unseen pages ($0.8\%$ exact). Bold marks the better side per column on
+unseen splits: the generative model edges retrieval on token F1 on all three
+unseen splits ($+0.001$ to $+0.029$) and on command match for
+\texttt{val\_unseen}.}
+\label{tab:bm25}
+\end{table}
+
+\subsection{Error census}
+On \texttt{test\_seen} (1{,}500): 788 exact (52.5\%), 250
+right-command-wrong-arguments (16.7\%), 4 invalid bash (0.3\%), 0 empty.
+The \texttt{sudo} prior persists at $14.7\%$ of predictions vs.\ $5.5\%$ of
+references (run 2: $42\%$), concentrated on obscure admin pages
+(\texttt{zeroclaw}, \texttt{pveum}, \texttt{koji})---plausible-prior,
+wrong-context behavior. Seen-split residue is dominated by sibling-tool
+confusions (\texttt{phpcs}$\leftrightarrow$\texttt{phpcbf},
+\texttt{7zr}$\leftrightarrow$\texttt{7za}, \texttt{bun}$\leftrightarrow$\texttt{npm})
+and invented flags on right families.
+
+\section{Analysis}
+\label{sec:analysis}
+
+\textbf{What scaling fixed.} 4.6$\times$/10.9$\times$ moved the broad model
+from ``usually the wrong tool'' ($\leq 2\%$ exact) to a competitive
+suggestion engine on seen commands ($0.525$--$0.559$ exact under unseen
+phrasings), confirming that interpolation (slot filling, paraphrase) is an
+interpolation-feasible skill: copying context entities into a learned
+template.
+
+\textbf{What scaling did not fix.} Unseen-page exact match stayed at
+$0.005$ and unseen-page loss \emph{regressed} ($3.80\!\to\!4.15$). Scaling
+along the \emph{phrasing} axis sharpens the fit to known pages; it does not
+supply the missing knowledge (flag vocabularies of unseen tools). The
+theoretically expected behavior of a data-limited conditional LM---falling
+back on a command-token prior exactly where evidence is absent---is what
+the model exhibits (\texttt{sudo} + wrong tool on obscure pages).
+
+\textbf{Retrieval as the control.} BM25's seen-split dominance ($0.857$
+mean exact vs.\ $0.515$) is an artifact of paraphrase-generated evaluation
+and must be reported to contextualize generative claims; its unseen-split
+failure ($\sim 0.8\%$) marks the boundary of pure memorization. The model's
+unseen-page F1 crossing above retrieval's is small but conceptually
+important: a 9.6M generative model composes \emph{something} about pages it
+never saw, which a retriever structurally cannot.
+
+\textbf{Methodological findings.} (i) Validation loss concealed a task-level
+bug until generation probes and a frozen-checkpoint mask ablation exposed
+it; (ii) orthogonal holdout axes made the scaling result interpretable; (iii)
+the label-space diagnostic redirected the scaling budget; (iv) every
+qualitative claim is backed by released per-example prediction logs.
+
+\section{Limitations}
+\label{sec:limitations}
+
+Evaluation requests are synthetic paraphrases of a curated corpus (tldr
+common/linux only), with slot values from small pools---real-user
+performance is likely lower, and slot-robustness may be partly pool
+memorization. Exact match grants no semantic equivalence (a
+different-but-valid command scores 0), \texttt{bash -n} checks syntax only,
+risk labels are heuristics, and nothing is ever executed. The model
+hallucinates flags, cannot verify local tool versions, and must not be
+given execution authority; the CLI never runs generated commands and
+displays pattern-based risk warnings. Observed safety-relevant behavior
+(privilege-escalation prior on obscure pages) is disclosed above and is
+motivation for the calibration work proposed next. Run 3 is not a controlled
+ablation of run 2 (corpus and filters change simultaneously); the page-split
+overlap makes cross-run comparisons directional, not exact. The core run's
+first-token weighting implementation tagged only the first active token per
+chunk (about one in three examples), so its reported effect is a lower
+bound.
+
+\section{Future Work}
+\label{sec:future}
+
+\begin{itemize}
+\item \textbf{Retrieval-augmented generation} \citep{lewis2020rag}: condition
+the prompt on the retrieved tldr page of the (unseen) tool, converting
+``unseen page'' into recombination of retrieved evidence; our BM25 index and
+six-split harness are the ready-made evaluation.
+\item \textbf{Data-mix curriculum}: cap variants per page and spend tokens on
+more pages (or rare-first-token oversampling) at fixed 100M tokens, testing
+whether the unseen-page loss regression (Table~\ref{tab:losses}) is an
+artifact of mixing.
+\item \textbf{Execution-grounded training}: sandboxed, reversible execution
+feedback \citep{yang2023intercode} to attack the 16.7\%
+right-family-wrong-arguments rate (rejection-sampling SFT or RL on
+executable-verifiable requests).
+\item \textbf{Calibration and abstention}: per-request sequence log-prob as
+an uncertainty signal to route low-confidence cases to retrieval or an
+explicit ``I don't know,'' directly targeting the \texttt{sudo} prior on
+obscure pages.
+\item \textbf{Semantic-equivalent evaluation}: executable-equivalence
+rubrics beyond exact match, addressing the strictness that makes even
+near-miss sibling tools score 0.
+\item \textbf{Scaling the coverage axis}: parameterize unseen-page loss by
+\emph{distinct pages} rather than tokens---a ``coverage law'' for tiny
+models; and byte/char-level tokenization ablations for rare-tool spelling.
+\item \textbf{Mechanistic probes}: head-level attribution and activation
+patching (cheap at this scale) to localize where argument composition fails.
+\end{itemize}
+
+\section{Released Platform}
+\label{sec:platform}
+
+The repository contains: the full data pipeline (pinned corpus commit,
+manifests, data card), tokenizer and packing code with tested invariants,
+the 272-line model, training/evaluation/baseline code, per-run metadata
+(config, environment, git commit, tokenizer snapshot), checkpoints
+(model-only \texttt{best-model.pt} files for all four runs), raw
+per-example predictions and failure logs for every evaluation, a packaged
+self-contained model, CLI with retrieval mode and risk warnings, a
+zero-dependency training dashboard, and a 16-chapter learning book that
+includes all theory, implementation walkthroughs, run narratives, and
+reproduction commands. We release everything under MIT (code) with tldr
+data under CC-BY-4.0 attribution.
+
+\section{Conclusion}
+
+\modelname{} demonstrates that a 10M-parameter model trained on one CPU-day
+can become a competitive suggestion engine \emph{within} its training
+distribution---and that the same disciplined evaluation that proves it also
+proves where it ends: page-level generalization. The packed-shortcut
+diagnosis, the label-space/capacity decomposition, and the
+scaling-with-regression result are each individually small; together they
+form a template for honest, mechanism-level study of small language models,
+and a platform on which the next questions---retrieval augmentation,
+execution grounding, calibration, and coverage scaling---are already
+instrumented.
+
+\section*{Reproducibility}
+All numbers in this paper are generated by the repository's code and stored
+in \texttt{artifacts/} (evaluation \texttt{metrics.json}/\texttt{report.md},
+training \texttt{metrics.jsonl}/\texttt{train.log}, per-run
+\texttt{env.json}/\texttt{git\_commit.txt}). Chapter 15 of the learning book
+lists the exact commands, resolved configurations, and artifact locations.
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+
+\end{document}

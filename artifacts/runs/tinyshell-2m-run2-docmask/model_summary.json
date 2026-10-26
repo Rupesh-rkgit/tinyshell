@@ -1,0 +1,15 @@
+{
+  "parameters": 2098816,
+  "non_embedding_parameters": 1574528,
+  "config": {
+    "vocab_size": 4096,
+    "d_model": 128,
+    "n_layers": 6,
+    "n_heads": 4,
+    "intermediate_size": 512,
+    "max_seq_len": 256,
+    "rope_theta": 10000.0,
+    "dropout": 0.05,
+    "tie_embeddings": true
+  }
+}
