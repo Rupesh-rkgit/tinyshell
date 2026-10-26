@@ -39,7 +39,7 @@
 
 @article{grattafiori2024llama3,
   author  = {Grattafiori, Aaron and others},
-  title   = {The Llama 3 Herd of Models},
+  title   = {The {Llama} 3 Herd of Models},
   journal = {arXiv preprint arXiv:2407.21783},
   year    = {2024}
 }
@@ -174,7 +174,7 @@
 
 @article{roziere2023codellama,
   author  = {Rozi{\`e}re, Baptiste and Gehring, Jonas and Gloeckle, Fabrice and Sootla, Sten and Gat, Itai and Tan, Xiaoqing Ellen and Adi, Yossi and Liu, Jingyu and Sauvestre, Romain and Raffel, Tom and others},
-  title   = {Code Llama: Open Foundation Models for Code},
+  title   = {{Code Llama}: Open Foundation Models for Code},
   journal = {arXiv preprint arXiv:2308.12950},
   year    = {2023}
 }
@@ -197,13 +197,13 @@
   note      = {arXiv:2203.02155}
 }
 
-@misc{dao2022flashattention,
-  author  = {Dao, Tri and Fu, Daniel Y. and Ermon, Stefano and Rudra, Atri and R{\'e}, Christopher},
-  title   = {{FlashAttention}: Fast and Memory-Efficient Exact Attention with {IO}-Awareness},
-  journal = {Advances in Neural Information Processing Systems (NeurIPS)},
-  volume  = {35},
-  year    = {2022},
-  note    = {arXiv:2205.14135}
+@inproceedings{dao2022flashattention,
+  author    = {Dao, Tri and Fu, Daniel Y. and Ermon, Stefano and Rudra, Atri and R{\'e}, Christopher},
+  title     = {{FlashAttention}: Fast and Memory-Efficient Exact Attention with {IO}-Awareness},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {35},
+  year      = {2022},
+  note      = {arXiv:2205.14135}
 }
 
 @misc{tldrpages,
@@ -212,4 +212,277 @@
   howpublished = {\url{https://github.com/tldr-pages/tldr}},
   note         = {Licensed CC-BY-4.0; snapshot commit 95062b79e30fc3539246399b1dbfcfabbccc79cf},
   year         = {2024}
+}
+
+% ---------------------------------------------------------------------------
+% Pruning and compression
+
+@inproceedings{lecun1990obd,
+  author    = {LeCun, Yann and Denker, John S. and Solla, Sara A.},
+  title     = {Optimal Brain Damage},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {2},
+  year      = {1990}
+}
+
+@inproceedings{han2015learning,
+  author    = {Han, Song and Pool, Jeff and Tran, John and Dally, William J.},
+  title     = {Learning both Weights and Connections for Efficient Neural Networks},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {28},
+  year      = {2015},
+  note      = {arXiv:1506.02626}
+}
+
+@inproceedings{frankle2019lottery,
+  author    = {Frankle, Jonathan and Carbin, Michael},
+  title     = {The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2019},
+  note      = {arXiv:1803.03635}
+}
+
+@inproceedings{molchanov2017pruning,
+  author    = {Molchanov, Pavlo and Tyree, Stephen and Karras, Tero and Aila, Timo and Kautz, Jan},
+  title     = {Pruning Convolutional Neural Networks for Resource Efficient Inference},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2017},
+  note      = {arXiv:1611.06440}
+}
+
+@inproceedings{michel2019sixteen,
+  author    = {Michel, Paul and Levy, Omer and Neubig, Graham},
+  title     = {Are Sixteen Heads Really Better than One?},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {32},
+  year      = {2019},
+  note      = {arXiv:1905.10650}
+}
+
+@inproceedings{voita2019heads,
+  author    = {Voita, Elena and Talbot, David and Moiseev, Fedor and Sennrich, Rico and Titov, Ivan},
+  title     = {Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned},
+  booktitle = {Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (ACL)},
+  pages     = {5797--5808},
+  year      = {2019},
+  note      = {arXiv:1905.09418}
+}
+
+@inproceedings{kwon2022fast,
+  author    = {Kwon, Woosuk and Kim, Sehoon and Mahoney, Michael W. and Hassoun, Joseph and Keutzer, Kurt and Gholami, Amir},
+  title     = {A Fast Post-Training Pruning Framework for Transformers},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {35},
+  year      = {2022},
+  note      = {arXiv:2204.09656}
+}
+
+@inproceedings{frantar2023sparsegpt,
+  author    = {Frantar, Elias and Alistarh, Dan},
+  title     = {{SparseGPT}: Massive Language Models Can Be Accurately Pruned in One-Shot},
+  booktitle = {Proceedings of the 40th International Conference on Machine Learning (ICML)},
+  year      = {2023},
+  note      = {arXiv:2301.00774}
+}
+
+@inproceedings{sun2024wanda,
+  author    = {Sun, Mingjie and Liu, Zhuang and Bair, Anna and Kolter, J. Zico},
+  title     = {A Simple and Effective Pruning Approach for Large Language Models},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2306.11695}
+}
+
+@inproceedings{ma2023llmpruner,
+  author    = {Ma, Xinyin and Fang, Gongfan and Wang, Xinchao},
+  title     = {{LLM-Pruner}: On the Structural Pruning of Large Language Models},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {36},
+  year      = {2023},
+  note      = {arXiv:2305.11627}
+}
+
+@inproceedings{xia2024sheared,
+  author    = {Xia, Mengzhou and Gao, Tianyu and Zeng, Zhiyuan and Chen, Danqi},
+  title     = {Sheared {LLaMA}: Accelerating Language Model Pre-training via Structured Pruning},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2310.06694}
+}
+
+@inproceedings{ashkboos2024slicegpt,
+  author    = {Ashkboos, Saleh and Croci, Maximilian L. and do Nascimento, Marcelo Gennari and Hoefler, Torsten and Hensman, James},
+  title     = {{SliceGPT}: Compress Large Language Models by Deleting Rows and Columns},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2401.15024}
+}
+
+@article{men2024shortgpt,
+  author  = {Men, Xin and Xu, Mingyu and Zhang, Qingyu and Wang, Bingning and Lin, Hongyu and Lu, Yaojie and Han, Xianpei and Chen, Weipeng},
+  title   = {{ShortGPT}: Layers in Large Language Models are More Redundant Than You Expect},
+  journal = {arXiv preprint arXiv:2403.03853},
+  year    = {2024}
+}
+
+@article{gromov2024deeper,
+  author  = {Gromov, Andrey and Tirumala, Kushal and Shapourian, Hassan and Glorioso, Paolo and Roberts, Daniel A.},
+  title   = {The Unreasonable Ineffectiveness of the Deeper Layers},
+  journal = {arXiv preprint arXiv:2403.17887},
+  year    = {2024}
+}
+
+@article{muralidharan2024minitron,
+  author  = {Muralidharan, Saurav and Sreenivas, Sharath Turuvekere and Joshi, Raviraj and Chochowski, Marcin and Patwary, Mostofa and Shoeybi, Mohammad and Catanzaro, Bryan and Kautz, Jan and Molchanov, Pavlo},
+  title   = {Compact Language Models via Pruning and Knowledge Distillation},
+  journal = {arXiv preprint arXiv:2407.14679},
+  year    = {2024}
+}
+
+@article{hinton2015distilling,
+  author  = {Hinton, Geoffrey and Vinyals, Oriol and Dean, Jeff},
+  title   = {Distilling the Knowledge in a Neural Network},
+  journal = {arXiv preprint arXiv:1503.02531},
+  year    = {2015}
+}
+
+@article{hooker2019forget,
+  author  = {Hooker, Sara and Courville, Aaron and Clark, Gregory and Dauphin, Yann and Frome, Andrea},
+  title   = {What Do Compressed Deep Neural Networks Forget?},
+  journal = {arXiv preprint arXiv:1911.05248},
+  year    = {2019}
+}
+
+@inproceedings{evci2020rigl,
+  author    = {Evci, Utku and Gale, Trevor and Menick, Jacob and Castro, Pablo Samuel and Elsen, Erich},
+  title     = {Rigging the Lottery: Making All Tickets Winners},
+  booktitle = {Proceedings of the 37th International Conference on Machine Learning (ICML)},
+  year      = {2020},
+  note      = {arXiv:1911.11134}
+}
+
+% ---------------------------------------------------------------------------
+% Interpretability and memorization
+
+@misc{nostalgebraist2020logitlens,
+  author       = {{nostalgebraist}},
+  title        = {Interpreting {GPT}: The Logit Lens},
+  howpublished = {LessWrong blog post},
+  year         = {2020}
+}
+
+@article{belrose2023tunedlens,
+  author  = {Belrose, Nora and Furman, Zach and Smith, Logan and Halawi, Danny and Ostrovsky, Igor and McKinney, Lev and Biderman, Stella and Steinhardt, Jacob},
+  title   = {Eliciting Latent Predictions from Transformers with the Tuned Lens},
+  journal = {arXiv preprint arXiv:2303.08112},
+  year    = {2023}
+}
+
+@article{elhage2021framework,
+  author  = {Elhage, Nelson and Nanda, Neel and Olsson, Catherine and Henighan, Tom and Joseph, Nicholas and Mann, Ben and Askell, Amanda and Bai, Yuntao and Chen, Anna and Conerly, Tom and others},
+  title   = {A Mathematical Framework for Transformer Circuits},
+  journal = {Transformer Circuits Thread},
+  year    = {2021}
+}
+
+@article{olsson2022induction,
+  author  = {Olsson, Catherine and Elhage, Nelson and Nanda, Neel and Joseph, Nicholas and DasSarma, Nova and Henighan, Tom and Mann, Ben and Askell, Amanda and Bai, Yuntao and Chen, Anna and others},
+  title   = {In-context Learning and Induction Heads},
+  journal = {arXiv preprint arXiv:2209.11895},
+  year    = {2022}
+}
+
+@inproceedings{geva2021kv,
+  author    = {Geva, Mor and Schuster, Roei and Berant, Jonathan and Levy, Omer},
+  title     = {Transformer Feed-Forward Layers Are Key-Value Memories},
+  booktitle = {Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  pages     = {5484--5495},
+  year      = {2021},
+  note      = {arXiv:2012.14913}
+}
+
+@inproceedings{dai2022knowledge,
+  author    = {Dai, Damai and Dong, Li and Hao, Yaru and Sui, Zhifang and Chang, Baobao and Wei, Furu},
+  title     = {Knowledge Neurons in Pretrained Transformers},
+  booktitle = {Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (ACL)},
+  pages     = {8493--8502},
+  year      = {2022},
+  note      = {arXiv:2104.08696}
+}
+
+@inproceedings{meng2022rome,
+  author    = {Meng, Kevin and Bau, David and Andonian, Alex and Belinkov, Yonatan},
+  title     = {Locating and Editing Factual Associations in {GPT}},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {35},
+  year      = {2022},
+  note      = {arXiv:2202.05262}
+}
+
+@inproceedings{wang2023ioi,
+  author    = {Wang, Kevin and Variengien, Alexandre and Conmy, Arthur and Shlegeris, Buck and Steinhardt, Jacob},
+  title     = {Interpretability in the Wild: a Circuit for Indirect Object Identification in {GPT-2} Small},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  note      = {arXiv:2211.00593}
+}
+
+@inproceedings{feldman2020memorization,
+  author    = {Feldman, Vitaly},
+  title     = {Does Learning Require Memorization? {A} Short Tale about a Long Tail},
+  booktitle = {Proceedings of the 52nd Annual ACM SIGACT Symposium on Theory of Computing (STOC)},
+  pages     = {954--959},
+  year      = {2020},
+  note      = {arXiv:1906.05271}
+}
+
+@inproceedings{chang2024localization,
+  author    = {Chang, Ting-Yun and Thomason, Jesse and Jia, Robin},
+  title     = {Do Localization Methods Actually Localize Memorized Data in {LLMs}? {A} Tale of Two Benchmarks},
+  booktitle = {Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics (NAACL)},
+  year      = {2024},
+  note      = {arXiv:2311.09060}
+}
+
+@article{stoehr2024paragraph,
+  author  = {Stoehr, Niklas and Gordon, Mitchell and Zhang, Chiyuan and Lewis, Owen},
+  title   = {Localizing Paragraph Memorization in Language Models},
+  journal = {arXiv preprint arXiv:2403.19851},
+  year    = {2024}
+}
+
+@inproceedings{borgeaud2022retro,
+  author    = {Borgeaud, Sebastian and Mensch, Arthur and Hoffmann, Jordan and Cai, Trevor and Rutherford, Eliza and Millican, Katie and van den Driessche, George and Lespiau, Jean-Baptiste and Damoc, Bogdan and Clark, Aidan and others},
+  title     = {Improving Language Models by Retrieving from Trillions of Tokens},
+  booktitle = {Proceedings of the 39th International Conference on Machine Learning (ICML)},
+  year      = {2022},
+  note      = {arXiv:2112.04426}
+}
+
+@inproceedings{dehghani2019universal,
+  author    = {Dehghani, Mostafa and Gouws, Stephan and Vinyals, Oriol and Uszkoreit, Jakob and Kaiser, {\L}ukasz},
+  title     = {Universal Transformers},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2019},
+  note      = {arXiv:1807.03819}
+}
+
+% ---------------------------------------------------------------------------
+% Statistics
+
+@article{wilson1927probable,
+  author  = {Wilson, Edwin B.},
+  title   = {Probable Inference, the Law of Succession, and Statistical Inference},
+  journal = {Journal of the American Statistical Association},
+  volume  = {22},
+  number  = {158},
+  pages   = {209--212},
+  year    = {1927}
+}
+
+@book{efron1993bootstrap,
+  author    = {Efron, Bradley and Tibshirani, Robert J.},
+  title     = {An Introduction to the Bootstrap},
+  publisher = {Chapman \& Hall/CRC},
+  year      = {1993}
 }

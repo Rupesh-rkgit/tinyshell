@@ -1,0 +1,122 @@
+[      2s] dense baseline
+[     64s]   batched vs single-request decoding agreement: 1.000
+[     64s] scoring units
+[    152s] MLP neuron pruning curves
+[    166s]   mlp random        0.05 seen_loss=0.774
+[    198s]   mlp random        0.10 seen_loss=0.865
+[    212s]   mlp random        0.20 seen_loss=1.137
+[    251s]   mlp random        0.25 seen_loss=1.342
+[    266s]   mlp random        0.30 seen_loss=1.617
+[    280s]   mlp random        0.40 seen_loss=2.233
+[    324s]   mlp random        0.50 seen_loss=3.155
+[    338s]   mlp random        0.60 seen_loss=4.588
+[    377s]   mlp random        0.75 seen_loss=6.876
+[    392s]   mlp random        0.90 seen_loss=8.531
+[    406s]   mlp magnitude     0.05 seen_loss=0.767
+[    440s]   mlp magnitude     0.10 seen_loss=0.850
+[    455s]   mlp magnitude     0.20 seen_loss=1.132
+[    493s]   mlp magnitude     0.25 seen_loss=1.351
+[    508s]   mlp magnitude     0.30 seen_loss=1.626
+[    522s]   mlp magnitude     0.40 seen_loss=2.311
+[    561s]   mlp magnitude     0.50 seen_loss=3.415
+[    575s]   mlp magnitude     0.60 seen_loss=4.970
+[    614s]   mlp magnitude     0.75 seen_loss=7.492
+[    628s]   mlp magnitude     0.90 seen_loss=9.986
+[    643s]   mlp activation    0.05 seen_loss=0.757
+[    670s]   mlp activation    0.10 seen_loss=0.844
+[    685s]   mlp activation    0.20 seen_loss=1.103
+[    723s]   mlp activation    0.25 seen_loss=1.283
+[    738s]   mlp activation    0.30 seen_loss=1.519
+[    752s]   mlp activation    0.40 seen_loss=2.081
+[    791s]   mlp activation    0.50 seen_loss=3.004
+[    805s]   mlp activation    0.60 seen_loss=4.348
+[    844s]   mlp activation    0.75 seen_loss=7.414
+[    858s]   mlp activation    0.90 seen_loss=10.331
+[    872s]   mlp fisher        0.05 seen_loss=0.757
+[    903s]   mlp fisher        0.10 seen_loss=0.842
+[    917s]   mlp fisher        0.20 seen_loss=1.077
+[    956s]   mlp fisher        0.25 seen_loss=1.274
+[    970s]   mlp fisher        0.30 seen_loss=1.470
+[    984s]   mlp fisher        0.40 seen_loss=2.054
+[   1023s]   mlp fisher        0.50 seen_loss=3.002
+[   1037s]   mlp fisher        0.60 seen_loss=4.310
+[   1077s]   mlp fisher        0.75 seen_loss=7.173
+[   1091s]   mlp fisher        0.90 seen_loss=9.898
+[   1105s]   mlp fisher_global 0.05 seen_loss=0.761
+[   1137s]   mlp fisher_global 0.10 seen_loss=0.838
+[   1151s]   mlp fisher_global 0.20 seen_loss=1.089
+[   1190s]   mlp fisher_global 0.25 seen_loss=1.257
+[   1204s]   mlp fisher_global 0.30 seen_loss=1.473
+[   1218s]   mlp fisher_global 0.40 seen_loss=2.032
+[   1257s]   mlp fisher_global 0.50 seen_loss=3.022
+[   1271s]   mlp fisher_global 0.60 seen_loss=4.367
+[   1312s]   mlp fisher_global 0.75 seen_loss=7.256
+[   1326s]   mlp fisher_global 0.90 seen_loss=10.043
+[   1326s] attention head pruning curves
+[   1340s]   heads random        0.125 seen_loss=0.790
+[   1368s]   heads random        0.250 seen_loss=1.008
+[   1382s]   heads random        0.375 seen_loss=1.650
+[   1414s]   heads random        0.500 seen_loss=2.226
+[   1428s]   heads random        0.625 seen_loss=3.377
+[   1443s]   heads random        0.750 seen_loss=4.440
+[   1457s]   heads magnitude     0.125 seen_loss=0.767
+[   1484s]   heads magnitude     0.250 seen_loss=0.941
+[   1498s]   heads magnitude     0.375 seen_loss=1.424
+[   1531s]   heads magnitude     0.500 seen_loss=1.992
+[   1545s]   heads magnitude     0.625 seen_loss=2.760
+[   1559s]   heads magnitude     0.750 seen_loss=3.698
+[   1574s]   heads activation    0.125 seen_loss=0.768
+[   1601s]   heads activation    0.250 seen_loss=0.933
+[   1615s]   heads activation    0.375 seen_loss=1.339
+[   1646s]   heads activation    0.500 seen_loss=1.901
+[   1660s]   heads activation    0.625 seen_loss=2.738
+[   1675s]   heads activation    0.750 seen_loss=3.622
+[   1689s]   heads fisher        0.125 seen_loss=0.775
+[   1716s]   heads fisher        0.250 seen_loss=0.937
+[   1730s]   heads fisher        0.375 seen_loss=1.273
+[   1763s]   heads fisher        0.500 seen_loss=1.926
+[   1777s]   heads fisher        0.625 seen_loss=2.726
+[   1792s]   heads fisher        0.750 seen_loss=3.761
+[   1806s]   heads fisher_global 0.125 seen_loss=0.738
+[   1836s]   heads fisher_global 0.250 seen_loss=0.795
+[   1850s]   heads fisher_global 0.375 seen_loss=0.889
+[   1881s]   heads fisher_global 0.500 seen_loss=1.119
+[   1896s]   heads fisher_global 0.625 seen_loss=1.737
+[   1910s]   heads fisher_global 0.750 seen_loss=2.622
+[   1910s] differential (seen-specific) pruning
+[   1924s]   diff seen_specific        0.01 seen=0.718 unseen=4.136
+[   1938s]   diff unseen_specific      0.01 seen=0.714 unseen=4.130
+[   1953s]   diff most_important_seen  0.01 seen=0.728 unseen=4.126
+[   1967s]   diff random               0.01 seen=0.719 unseen=4.133
+[   1981s]   diff seen_specific        0.02 seen=0.736 unseen=4.129
+[   1996s]   diff unseen_specific      0.02 seen=0.744 unseen=4.112
+[   2010s]   diff most_important_seen  0.02 seen=0.752 unseen=4.104
+[   2024s]   diff random               0.02 seen=0.731 unseen=4.127
+[   2053s]   diff seen_specific        0.05 seen=0.795 unseen=4.105
+[   2082s]   diff unseen_specific      0.05 seen=0.814 unseen=4.101
+[   2113s]   diff most_important_seen  0.05 seen=0.817 unseen=4.074
+[   2143s]   diff random               0.05 seen=0.774 unseen=4.128
+[   2178s]   diff seen_specific        0.10 seen=0.896 unseen=4.065
+[   2210s]   diff unseen_specific      0.10 seen=0.957 unseen=4.087
+[   2246s]   diff most_important_seen  0.10 seen=0.963 unseen=4.047
+[   2279s]   diff random               0.10 seen=0.863 unseen=4.129
+[   2293s]   diff seen_specific        0.20 seen=1.153 unseen=4.057
+[   2308s]   diff unseen_specific      0.20 seen=1.373 unseen=4.131
+[   2322s]   diff most_important_seen  0.20 seen=1.354 unseen=4.071
+[   2336s]   diff random               0.20 seen=1.126 unseen=4.114
+[   2336s] probes: logit lens, copy scores, ablations
+[   3119s] recovery (masked distillation) + physical slicing
+[   4229s]   recovered fisher_global 0.50: seen exact=0.160 params=6,624,512 p50 248 vs 238 ms
+[   5320s]   recovered random 0.50: seen exact=0.150 params=6,624,512 p50 238 vs 238 ms
+[   6401s]   recovered fisher_global 0.75: seen exact=0.025 params=5,149,952 p50 199 vs 238 ms
+[   6401s] family specialization: extract a git/docker/kubectl/... subnetwork
+[   6489s]   general_fisher  0.50 family exact=0.000 other exact=0.005
+[   6514s]   family_fisher   0.50 family exact=0.010 other exact=0.011
+[   6540s]   general_fisher  0.75 family exact=0.000 other exact=0.000
+[   6565s]   family_fisher   0.75 family exact=0.000 other exact=0.000
+[   6591s]   general_fisher  0.90 family exact=0.000 other exact=0.000
+[   6616s]   family_fisher   0.90 family exact=0.000 other exact=0.000
+[   7614s]   specialist 0.75/0.25 + recovery: family exact=0.395 other exact=0.000
+[   8608s]   specialist 0.90/0.50 + recovery: family exact=0.300 other exact=0.000
+[   8608s] wrote artifacts/analysis/tinyshell-xl-10m/pruning.json
+Wrote figures to paper/figures
