@@ -361,6 +361,56 @@ small eval artifacts only with identical content, and the `.gitignore` was
 completed). Code-level content is unchanged; the new pre-launch hash is
 `2b88264`.
 
+## Significance of the retrieval comparison
+
+`scripts/significance.py` recomputes BM25 per example and reports Wilson
+intervals and paired bootstrap intervals that resample whole tldr pages
+(examples of one page are not independent). Output:
+`artifacts/eval/tinyshell-xl-10m/significance.{json,md}`.
+
+| Split | Δ token F1 (model − BM25) | 95% page-clustered CI |
+|---|---:|---|
+| `val_unseen` | +0.029 | [+0.012, +0.046] |
+| `test_unseen` | +0.011 | [−0.005, +0.027] |
+| `test_unseen_paraphrase` | +0.001 | [−0.016, +0.018] |
+
+Only `val_unseen` excludes zero, so the unseen-page advantage is suggestive,
+not established. On `test_seen` the model is exactly right on 106 requests
+BM25 gets wrong; an oracle router would reach 0.914 exact vs 0.843 for BM25.
+
+## Probing and post-training pruning (run 3)
+
+`scripts/prune_analysis.py` opens the 9.6M checkpoint with multiplicative
+unit masks (MLP neurons before `down`, heads before `o_proj`) and runs logit
+lens, ablation, copy-score, pruning, recovery, and specialization
+experiments (2.4 h on the 4-vCPU host). Results:
+`artifacts/analysis/tinyshell-xl-10m/pruning.json`; figures:
+`python scripts/plot_pruning.py` → `paper/figures/`. Full write-up: paper
+Section 10.
+
+- **Where computation happens.** Removing attention in layers 0–2 costs
+  +0.4 to +1.4 nats of first-token loss; in layers 3–9 at most +0.10. Every
+  MLP costs +0.3 to +0.56 (layer 0: +2.0). Copy heads (L0H5, L1H7, L3H7,
+  L2H1) attend to the prompt token being emitted. Logit lens: on unseen
+  pages the family token stalls at ~0.2 accuracy from layer 5 on.
+- **No free MLP neurons.** Random, magnitude, activation×weight, and Fisher
+  scores all give nearly the same curve; 10% removal costs 5–9 exact points
+  (dense 0.485 on the 200-request subset), 50% collapses generation.
+- **Heads are prunable with global Fisher allocation.** 25% of heads removed
+  → 0.415 exact (random: 0.270); 50% → 0.215 (random: 0.010). The global
+  ranking keeps every head in layers 0–2.
+- **Page knowledge is not localized.** Removing the most seen-specific
+  neurons is about as selective as random; seen/unseen Fisher Spearman 0.33.
+  Pruning lowers unseen *loss* slightly without improving unseen
+  *generation* (a calibration effect).
+- **Recovery.** 50% MLP pruning + 400 steps of masked distillation: 0.005 →
+  0.160 exact; Fisher and random end up equal. Physical slicing to 6.62M
+  params gives no CPU latency gain at batch size 1 (248 vs 238 ms).
+- **Specialist extraction.** Fisher scores on ten DevOps families + 400
+  distillation steps: a 2.95M subnetwork keeps 0.300 exact on those families
+  (dense 0.465) and picks the family more often (0.910 vs 0.790); everything
+  else is forgotten.
+
 ## What this says about small-model evaluation
 
 - **Loss can hide a shortcut.** Run 1's validation loss looked reasonable, but

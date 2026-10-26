@@ -1,4 +1,4 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{59}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -35,7 +35,7 @@ Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de~Oliveira
 Baptiste Rozi{\`e}re, Jonas Gehring, Fabrice Gloeckle, Sten Sootla, Itai Gat,
   Xiaoqing~Ellen Tan, Yossi Adi, Jingyu Liu, Romain Sauvestre, Tom Raffel,
   et~al.
-\newblock Code llama: Open foundation models for code.
+\newblock {Code Llama}: Open foundation models for code.
 \newblock \emph{arXiv preprint arXiv:2308.12950}, 2023.
 
 \bibitem[Touvron et~al.(2023)Touvron, Lavril, Izacard, Martinet, Lachaux,
@@ -50,7 +50,7 @@ Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne
 
 \bibitem[Grattafiori et~al.(2024)]{grattafiori2024llama3}
 Aaron Grattafiori et~al.
-\newblock The llama 3 herd of models.
+\newblock The {Llama} 3 herd of models.
 \newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
 
 \bibitem[Ouyang et~al.(2022)Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin,
@@ -91,7 +91,9 @@ Mario~Michael Krell, Matej Kosec, Sergio~P. Perez, and Andrew Fitzgibbon.
   R{\'e}]{dao2022flashattention}
 Tri Dao, Daniel~Y. Fu, Stefano Ermon, Atri Rudra, and Christopher R{\'e}.
 \newblock {FlashAttention}: Fast and memory-efficient exact attention with
-  {IO}-awareness, 2022.
+  {IO}-awareness.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~35, 2022.
 \newblock arXiv:2205.14135.
 
 \bibitem[Copet et~al.(2023)Copet, Kreuk, Gat, Remez, Kant, Synnaeve, Adi, and
@@ -135,6 +137,17 @@ Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
   (NeurIPS)}, volume~33, 2020.
 \newblock arXiv:2005.11401.
 
+\bibitem[Borgeaud et~al.(2022)Borgeaud, Mensch, Hoffmann, Cai, Rutherford,
+  Millican, van~den Driessche, Lespiau, Damoc, Clark,
+  et~al.]{borgeaud2022retro}
+Sebastian Borgeaud, Arthur Mensch, Jordan Hoffmann, Trevor Cai, Eliza
+  Rutherford, Katie Millican, George van~den Driessche, Jean-Baptiste Lespiau,
+  Bogdan Damoc, Aidan Clark, et~al.
+\newblock Improving language models by retrieving from trillions of tokens.
+\newblock In \emph{Proceedings of the 39th International Conference on Machine
+  Learning (ICML)}, 2022.
+\newblock arXiv:2112.04426.
+
 \bibitem[Yang et~al.(2023)Yang, Jimenez, Wettig, Lieret, Yao, Narasimhan, and
   Press]{yang2023intercode}
 John Yang, Carlos~E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao,
@@ -144,6 +157,213 @@ John Yang, Carlos~E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao,
 \newblock In \emph{Advances in Neural Information Processing Systems
   (NeurIPS)}, volume~36, 2023.
 \newblock arXiv:2306.14898.
+
+\bibitem[LeCun et~al.(1990)LeCun, Denker, and Solla]{lecun1990obd}
+Yann LeCun, John~S. Denker, and Sara~A. Solla.
+\newblock Optimal brain damage.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~2, 1990.
+
+\bibitem[Han et~al.(2015)Han, Pool, Tran, and Dally]{han2015learning}
+Song Han, Jeff Pool, John Tran, and William~J. Dally.
+\newblock Learning both weights and connections for efficient neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~28, 2015.
+\newblock arXiv:1506.02626.
+
+\bibitem[Frankle and Carbin(2019)]{frankle2019lottery}
+Jonathan Frankle and Michael Carbin.
+\newblock The lottery ticket hypothesis: Finding sparse, trainable neural
+  networks.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+\newblock arXiv:1803.03635.
+
+\bibitem[Molchanov et~al.(2017)Molchanov, Tyree, Karras, Aila, and
+  Kautz]{molchanov2017pruning}
+Pavlo Molchanov, Stephen Tyree, Tero Karras, Timo Aila, and Jan Kautz.
+\newblock Pruning convolutional neural networks for resource efficient
+  inference.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2017.
+\newblock arXiv:1611.06440.
+
+\bibitem[Michel et~al.(2019)Michel, Levy, and Neubig]{michel2019sixteen}
+Paul Michel, Omer Levy, and Graham Neubig.
+\newblock Are sixteen heads really better than one?
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~32, 2019.
+\newblock arXiv:1905.10650.
+
+\bibitem[Voita et~al.(2019)Voita, Talbot, Moiseev, Sennrich, and
+  Titov]{voita2019heads}
+Elena Voita, David Talbot, Fedor Moiseev, Rico Sennrich, and Ivan Titov.
+\newblock Analyzing multi-head self-attention: Specialized heads do the heavy
+  lifting, the rest can be pruned.
+\newblock In \emph{Proceedings of the 57th Annual Meeting of the Association
+  for Computational Linguistics (ACL)}, pages 5797--5808, 2019.
+\newblock arXiv:1905.09418.
+
+\bibitem[Kwon et~al.(2022)Kwon, Kim, Mahoney, Hassoun, Keutzer, and
+  Gholami]{kwon2022fast}
+Woosuk Kwon, Sehoon Kim, Michael~W. Mahoney, Joseph Hassoun, Kurt Keutzer, and
+  Amir Gholami.
+\newblock A fast post-training pruning framework for transformers.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~35, 2022.
+\newblock arXiv:2204.09656.
+
+\bibitem[Frantar and Alistarh(2023)]{frantar2023sparsegpt}
+Elias Frantar and Dan Alistarh.
+\newblock {SparseGPT}: Massive language models can be accurately pruned in
+  one-shot.
+\newblock In \emph{Proceedings of the 40th International Conference on Machine
+  Learning (ICML)}, 2023.
+\newblock arXiv:2301.00774.
+
+\bibitem[Sun et~al.(2024)Sun, Liu, Bair, and Kolter]{sun2024wanda}
+Mingjie Sun, Zhuang Liu, Anna Bair, and J.~Zico Kolter.
+\newblock A simple and effective pruning approach for large language models.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2306.11695.
+
+\bibitem[Ma et~al.(2023)Ma, Fang, and Wang]{ma2023llmpruner}
+Xinyin Ma, Gongfan Fang, and Xinchao Wang.
+\newblock {LLM-Pruner}: On the structural pruning of large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~36, 2023.
+\newblock arXiv:2305.11627.
+
+\bibitem[Ashkboos et~al.(2024)Ashkboos, Croci, do~Nascimento, Hoefler, and
+  Hensman]{ashkboos2024slicegpt}
+Saleh Ashkboos, Maximilian~L. Croci, Marcelo~Gennari do~Nascimento, Torsten
+  Hoefler, and James Hensman.
+\newblock {SliceGPT}: Compress large language models by deleting rows and
+  columns.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2401.15024.
+
+\bibitem[Xia et~al.(2024)Xia, Gao, Zeng, and Chen]{xia2024sheared}
+Mengzhou Xia, Tianyu Gao, Zhiyuan Zeng, and Danqi Chen.
+\newblock Sheared {LLaMA}: Accelerating language model pre-training via
+  structured pruning.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock arXiv:2310.06694.
+
+\bibitem[Muralidharan et~al.(2024)Muralidharan, Sreenivas, Joshi, Chochowski,
+  Patwary, Shoeybi, Catanzaro, Kautz, and Molchanov]{muralidharan2024minitron}
+Saurav Muralidharan, Sharath~Turuvekere Sreenivas, Raviraj Joshi, Marcin
+  Chochowski, Mostofa Patwary, Mohammad Shoeybi, Bryan Catanzaro, Jan Kautz,
+  and Pavlo Molchanov.
+\newblock Compact language models via pruning and knowledge distillation.
+\newblock \emph{arXiv preprint arXiv:2407.14679}, 2024.
+
+\bibitem[Hinton et~al.(2015)Hinton, Vinyals, and Dean]{hinton2015distilling}
+Geoffrey Hinton, Oriol Vinyals, and Jeff Dean.
+\newblock Distilling the knowledge in a neural network.
+\newblock \emph{arXiv preprint arXiv:1503.02531}, 2015.
+
+\bibitem[Men et~al.(2024)Men, Xu, Zhang, Wang, Lin, Lu, Han, and
+  Chen]{men2024shortgpt}
+Xin Men, Mingyu Xu, Qingyu Zhang, Bingning Wang, Hongyu Lin, Yaojie Lu, Xianpei
+  Han, and Weipeng Chen.
+\newblock {ShortGPT}: Layers in large language models are more redundant than
+  you expect.
+\newblock \emph{arXiv preprint arXiv:2403.03853}, 2024.
+
+\bibitem[Gromov et~al.(2024)Gromov, Tirumala, Shapourian, Glorioso, and
+  Roberts]{gromov2024deeper}
+Andrey Gromov, Kushal Tirumala, Hassan Shapourian, Paolo Glorioso, and
+  Daniel~A. Roberts.
+\newblock The unreasonable ineffectiveness of the deeper layers.
+\newblock \emph{arXiv preprint arXiv:2403.17887}, 2024.
+
+\bibitem[Hooker et~al.(2019)Hooker, Courville, Clark, Dauphin, and
+  Frome]{hooker2019forget}
+Sara Hooker, Aaron Courville, Gregory Clark, Yann Dauphin, and Andrea Frome.
+\newblock What do compressed deep neural networks forget?
+\newblock \emph{arXiv preprint arXiv:1911.05248}, 2019.
+
+\bibitem[{nostalgebraist}(2020)]{nostalgebraist2020logitlens}
+{nostalgebraist}.
+\newblock Interpreting {GPT}: The logit lens.
+\newblock LessWrong blog post, 2020.
+
+\bibitem[Belrose et~al.(2023)Belrose, Furman, Smith, Halawi, Ostrovsky,
+  McKinney, Biderman, and Steinhardt]{belrose2023tunedlens}
+Nora Belrose, Zach Furman, Logan Smith, Danny Halawi, Igor Ostrovsky, Lev
+  McKinney, Stella Biderman, and Jacob Steinhardt.
+\newblock Eliciting latent predictions from transformers with the tuned lens.
+\newblock \emph{arXiv preprint arXiv:2303.08112}, 2023.
+
+\bibitem[Elhage et~al.(2021)Elhage, Nanda, Olsson, Henighan, Joseph, Mann,
+  Askell, Bai, Chen, Conerly, et~al.]{elhage2021framework}
+Nelson Elhage, Neel Nanda, Catherine Olsson, Tom Henighan, Nicholas Joseph, Ben
+  Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, et~al.
+\newblock A mathematical framework for transformer circuits.
+\newblock \emph{Transformer Circuits Thread}, 2021.
+
+\bibitem[Wang et~al.(2023)Wang, Variengien, Conmy, Shlegeris, and
+  Steinhardt]{wang2023ioi}
+Kevin Wang, Alexandre Variengien, Arthur Conmy, Buck Shlegeris, and Jacob
+  Steinhardt.
+\newblock Interpretability in the wild: a circuit for indirect object
+  identification in {GPT-2} small.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock arXiv:2211.00593.
+
+\bibitem[Olsson et~al.(2022)Olsson, Elhage, Nanda, Joseph, DasSarma, Henighan,
+  Mann, Askell, Bai, Chen, et~al.]{olsson2022induction}
+Catherine Olsson, Nelson Elhage, Neel Nanda, Nicholas Joseph, Nova DasSarma,
+  Tom Henighan, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, et~al.
+\newblock In-context learning and induction heads.
+\newblock \emph{arXiv preprint arXiv:2209.11895}, 2022.
+
+\bibitem[Geva et~al.(2021)Geva, Schuster, Berant, and Levy]{geva2021kv}
+Mor Geva, Roei Schuster, Jonathan Berant, and Omer Levy.
+\newblock Transformer feed-forward layers are key-value memories.
+\newblock In \emph{Proceedings of the 2021 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 5484--5495, 2021.
+\newblock arXiv:2012.14913.
+
+\bibitem[Dai et~al.(2022)Dai, Dong, Hao, Sui, Chang, and Wei]{dai2022knowledge}
+Damai Dai, Li~Dong, Yaru Hao, Zhifang Sui, Baobao Chang, and Furu Wei.
+\newblock Knowledge neurons in pretrained transformers.
+\newblock In \emph{Proceedings of the 60th Annual Meeting of the Association
+  for Computational Linguistics (ACL)}, pages 8493--8502, 2022.
+\newblock arXiv:2104.08696.
+
+\bibitem[Meng et~al.(2022)Meng, Bau, Andonian, and Belinkov]{meng2022rome}
+Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov.
+\newblock Locating and editing factual associations in {GPT}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~35, 2022.
+\newblock arXiv:2202.05262.
+
+\bibitem[Feldman(2020)]{feldman2020memorization}
+Vitaly Feldman.
+\newblock Does learning require memorization? {A} short tale about a long tail.
+\newblock In \emph{Proceedings of the 52nd Annual ACM SIGACT Symposium on
+  Theory of Computing (STOC)}, pages 954--959, 2020.
+\newblock arXiv:1906.05271.
+
+\bibitem[Chang et~al.(2024)Chang, Thomason, and Jia]{chang2024localization}
+Ting-Yun Chang, Jesse Thomason, and Robin Jia.
+\newblock Do localization methods actually localize memorized data in {LLMs}?
+  {A} tale of two benchmarks.
+\newblock In \emph{Proceedings of the 2024 Conference of the North American
+  Chapter of the Association for Computational Linguistics (NAACL)}, 2024.
+\newblock arXiv:2311.09060.
+
+\bibitem[Stoehr et~al.(2024)Stoehr, Gordon, Zhang, and
+  Lewis]{stoehr2024paragraph}
+Niklas Stoehr, Mitchell Gordon, Chiyuan Zhang, and Owen Lewis.
+\newblock Localizing paragraph memorization in language models.
+\newblock \emph{arXiv preprint arXiv:2403.19851}, 2024.
 
 \bibitem[{tldr-pages contributors}(2024)]{tldrpages}
 {tldr-pages contributors}.
@@ -205,5 +425,32 @@ Stephen Robertson and Hugo Zaragoza.
 \newblock The probabilistic relevance framework: {BM25} and beyond.
 \newblock \emph{Foundations and Trends in Information Retrieval}, 3\penalty0
   (4):\penalty0 333--389, 2009.
+
+\bibitem[Wilson(1927)]{wilson1927probable}
+Edwin~B. Wilson.
+\newblock Probable inference, the law of succession, and statistical inference.
+\newblock \emph{Journal of the American Statistical Association}, 22\penalty0
+  (158):\penalty0 209--212, 1927.
+
+\bibitem[Efron and Tibshirani(1993)]{efron1993bootstrap}
+Bradley Efron and Robert~J. Tibshirani.
+\newblock \emph{An Introduction to the Bootstrap}.
+\newblock Chapman \& Hall/CRC, 1993.
+
+\bibitem[Dehghani et~al.(2019)Dehghani, Gouws, Vinyals, Uszkoreit, and
+  Kaiser]{dehghani2019universal}
+Mostafa Dehghani, Stephan Gouws, Oriol Vinyals, Jakob Uszkoreit, and {\L}ukasz
+  Kaiser.
+\newblock Universal transformers.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2019.
+\newblock arXiv:1807.03819.
+
+\bibitem[Evci et~al.(2020)Evci, Gale, Menick, Castro, and Elsen]{evci2020rigl}
+Utku Evci, Trevor Gale, Jacob Menick, Pablo~Samuel Castro, and Erich Elsen.
+\newblock Rigging the lottery: Making all tickets winners.
+\newblock In \emph{Proceedings of the 37th International Conference on Machine
+  Learning (ICML)}, 2020.
+\newblock arXiv:1911.11134.
 
 \end{thebibliography}
