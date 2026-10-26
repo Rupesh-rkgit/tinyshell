@@ -1,0 +1,9 @@
+# Full optimizer checkpoints (too large for regular Git; GitHub 100MB limit)
+artifacts/runs/tinyshell-2m-run1/checkpoints/best.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-2m-run1/checkpoints/final.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-2m-run2-docmask/checkpoints/best.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-2m-run2-docmask/checkpoints/final.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-core-2m/checkpoints/best.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-core-2m/checkpoints/final.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-xl-10m/checkpoints/best.pt filter=lfs diff=lfs merge=lfs -text
+artifacts/runs/tinyshell-xl-10m/checkpoints/final.pt filter=lfs diff=lfs merge=lfs -text
